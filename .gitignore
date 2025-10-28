@@ -20,5 +20,47 @@ dist-ssr
 *.suo
 *.ntvs*
 *.njsproj
+
+# Dependencias alternativas
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Testing
+coverage
+*.lcov
+.nyc_output
+
+# Caché
+.cache
+.parcel-cache
+.eslintcache
+.stylelintcache
+
+# Variables de entorno
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build temporal
+.temp
+.tmp
+*.tsbuildinfo
+
+# Sistema operativo
+Thumbs.db
+
+# Debugging
+*.cpuprofile
+*.heapprofile
+*.heapsnapshot
+
+# Storybook
+storybook-static
+
+# Vite específico (si usas Vite)
+*.timestamp-*
 *.sln
 *.sw?
