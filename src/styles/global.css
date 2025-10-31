@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+@theme {
+    --color-primary: #b8d600;
+    --color-primary-hover: #a0b800;
+    --color-primary-active: #8a9f00;
+    --color-gamerpay: #019eff;
+    --color-steam: #59bf40;
+    --color-csfloat: #4a4a4a;
+    --color-csfloat-secondary: #ffffff;
+}

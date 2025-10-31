@@ -13,7 +13,7 @@ export const LoginPage: React.FC = () => {
     }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 100 }}>
+        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#4A4A4A] to-[#2C2C2C]">
             <LoginForm onSubmit={handleSubmit} loading={isLoading} error={error} />
         </div>
     )
