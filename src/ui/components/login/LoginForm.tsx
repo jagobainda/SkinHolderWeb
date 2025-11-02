@@ -1,17 +1,15 @@
 import React, { useState } from 'react'
-import { Alert } from '@ui/components/shared/Alert'
 
 type Props = {
     onSubmit: (username: string, password: string) => void
     onForgotPassword: () => void
     onRequestAccess: (email: string) => void
     loading: boolean
-    error: string | null
     requestAccessLoading?: boolean
     requestAccessSuccess?: boolean
 }
 
-export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onRequestAccess, loading, error, requestAccessLoading = false, requestAccessSuccess = false }) => {
+export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onRequestAccess, loading, requestAccessLoading = false }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [showRegisterPanel, setShowRegisterPanel] = useState(false)
@@ -56,14 +54,6 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
                             className="px-4 py-2 border text-gray-200 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-transparent"
                         />
 
-                        <button
-                            type="button"
-                            onClick={onForgotPassword}
-                            className="text-primary text-sm hover:underline self-center"
-                        >
-                            ¿Olvidaste tu contraseña?
-                        </button>
-
                         <input
                             type="password"
                             placeholder="Contraseña"
@@ -72,9 +62,13 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
                             className="px-4 py-2 border text-gray-200 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-transparent"
                         />
 
-                        <div className="h-5 flex items-center justify-center">
-                            {error && <span className="text-red-500 text-sm">{error}</span>}
-                        </div>
+                        <button
+                            type="button"
+                            onClick={onForgotPassword}
+                            className="text-primary text-sm hover:underline self-center"
+                        >
+                            ¿Olvidaste tu contraseña?
+                        </button>
 
                         <button
                             type="submit"
@@ -119,32 +113,24 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
                             </p>
                         </div>
 
-                        {requestAccessSuccess ? (
-                            <Alert
-                                variant="success"
-                                title="¡Solicitud enviada!"
-                                message="Recibirás un email cuando tu acceso sea aprobado."
+                        <form onSubmit={handleRequestAccess} className="flex flex-col gap-4">
+                            <input
+                                type="email"
+                                placeholder="tu@email.com"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                required
+                                className="px-4 py-2 border text-gray-200 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-transparent"
                             />
-                        ) : (
-                            <form onSubmit={handleRequestAccess} className="flex flex-col gap-4">
-                                <input
-                                    type="email"
-                                    placeholder="tu@email.com"
-                                    value={email}
-                                    onChange={e => setEmail(e.target.value)}
-                                    required
-                                    className="px-4 py-2 border text-gray-200 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-transparent"
-                                />
 
-                                <button
-                                    type="submit"
-                                    disabled={requestAccessLoading}
-                                    className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center min-h-[42px]"
-                                >
-                                    {requestAccessLoading ? (<div className="w-5 h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin"></div>) : ('Solicitar Acceso')}
-                                </button>
-                            </form>
-                        )}
+                            <button
+                                type="submit"
+                                disabled={requestAccessLoading}
+                                className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center min-h-[42px]"
+                            >
+                                {requestAccessLoading ? (<div className="w-5 h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin"></div>) : ('Solicitar Acceso')}
+                            </button>
+                        </form>
                     </div>
                 </div>
             )}

@@ -5,7 +5,7 @@ import type { LoginRequest } from '@domain/models/LoginRequest'
 
 const repo = new AuthRepositoryImpl()
 
-const getErrorMessage = (error: unknown): string => {
+const getErrorMessageLogin = (error: unknown): string => {
     if (error instanceof Error && 'status' in error) {
         const status = (error as { status: number }).status
 
@@ -22,32 +22,66 @@ const getErrorMessage = (error: unknown): string => {
     return 'Error al iniciar sesión'
 }
 
+const getErrorMessageRequestAccess = (status: number): string => {
+    switch (status) {
+        case 400:
+            return 'Email inválido o ya registrado'
+        case 409:
+            return 'Ya existe una solicitud pendiente para este email'
+        case 429:
+            return 'Demasiadas solicitudes. Pruebe más tarde'
+        default:
+            return 'Error al solicitar acceso'
+    }
+}
+
 export const useLoginViewModel = () => {
     const [isLoading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const [requestAccessLoading, setRequestAccessLoading] = useState(false)
 
-    const login = async (dto: LoginRequest) => {
+    const login = async (dto: LoginRequest, showToast: (type: 'success' | 'danger', title: string, message: string) => void) => {
         setLoading(true)
         setError(null)
         try {
             const result = await loginUser(repo, dto)
             if (!result) {
-                setError('Credenciales incorrectas')
+                showToast('danger', 'Error de autenticación', 'Credenciales incorrectas')
                 return null
             }
             return result
         } catch (e: unknown) {
             console.error('Error en login:', e)
-            setError(getErrorMessage(e))
+            const errorMessage = getErrorMessageLogin(e)
+            showToast('danger', 'Error de inicio de sesión', errorMessage)
             return null
         } finally {
             setLoading(false)
         }
     }
 
+    const requestAccess = async (email: string, showToast: (type: 'success' | 'danger', title: string, message: string) => void) => {
+        setRequestAccessLoading(true)
+        try {
+            const status = await repo.requestAccess(email)
+            if (status === 200 || status === 201) {
+                showToast('success', '¡Solicitud enviada!', 'Recibirás un email cuando tu acceso sea aprobado.')
+            } else {
+                showToast('danger', 'Error', getErrorMessageRequestAccess(status))
+            }
+        } catch (e) {
+            console.error('Error requesting access:', e)
+            showToast('danger', 'Error', 'Error al solicitar acceso')
+        } finally {
+            setRequestAccessLoading(false)
+        }
+    }
+
     return {
         login,
+        requestAccess,
         isLoading,
-        error
+        error,
+        requestAccessLoading
     }
 }

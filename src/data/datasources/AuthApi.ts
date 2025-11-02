@@ -26,10 +26,12 @@ export const AuthApi = {
 
     async requestAccess(email: string): Promise<number> {
         try {
-            const response = await api.post('/Auth/requestAccess', { email })
+            const response = await api.post('/Auth/requestAccess', email)
             return response.status
-        } catch {
-            return 400
+        } catch (error: unknown) {
+            if (error instanceof AxiosError && error.response) return error.response.status
+
+            return 500
         }
     }
 }

@@ -15,4 +15,12 @@ export class AuthRepositoryImpl implements IAuthRepository {
 
         return result
     }
+
+    async validate(): Promise<boolean> {
+        return await AuthApi.validate()
+    }
+
+    async requestAccess(email: string): Promise<number> {
+        return await AuthApi.requestAccess(email)
+    }
 }
