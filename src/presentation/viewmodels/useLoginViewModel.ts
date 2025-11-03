@@ -41,6 +41,11 @@ export const useLoginViewModel = () => {
     const [requestAccessLoading, setRequestAccessLoading] = useState(false)
 
     const login = async (dto: LoginRequest, showToast: (type: 'success' | 'danger', title: string, message: string) => void) => {
+        if (!dto.username?.trim() || !dto.password?.trim()) {
+            showToast('danger', 'Campos requeridos', 'El email y la contraseña son obligatorios')
+            return null
+        }
+
         setLoading(true)
         setError(null)
         try {
@@ -60,18 +65,21 @@ export const useLoginViewModel = () => {
         }
     }
 
-    const requestAccess = async (email: string, showToast: (type: 'success' | 'danger', title: string, message: string) => void) => {
+    const requestAccess = async (email: string, showToast: (type: 'success' | 'danger', title: string, message: string) => void): Promise<boolean> => {
         setRequestAccessLoading(true)
         try {
             const status = await repo.requestAccess(email)
             if (status === 200 || status === 201) {
                 showToast('success', '¡Solicitud enviada!', 'Recibirás un email cuando tu acceso sea aprobado.')
+                return true
             } else {
                 showToast('danger', 'Error', getErrorMessageRequestAccess(status))
+                return false
             }
         } catch (e) {
             console.error('Error requesting access:', e)
             showToast('danger', 'Error', 'Error al solicitar acceso')
+            return false
         } finally {
             setRequestAccessLoading(false)
         }

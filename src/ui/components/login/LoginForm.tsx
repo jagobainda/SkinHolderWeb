@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 type Props = {
     onSubmit: (username: string, password: string) => void
     onForgotPassword: () => void
-    onRequestAccess: (email: string) => void
+    onRequestAccess: (email: string) => Promise<boolean>
     loading: boolean
     requestAccessLoading?: boolean
     requestAccessSuccess?: boolean
@@ -20,10 +20,12 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
         onSubmit(username, password)
     }
 
-    const handleRequestAccess = (e: React.FormEvent) => {
+    const handleRequestAccess = async (e: React.FormEvent) => {
         e.preventDefault()
-        onRequestAccess(email)
+
+        if (await onRequestAccess(email)) setEmail('')
     }
+
 
     return (
         <div className="flex gap-8 items-center">
