@@ -28,66 +28,77 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
 
 
     return (
-        <div className="flex gap-8 items-center">
-            <div className="group relative">
-                <div className="absolute -inset-0.5 bg-primary rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+        <div className="flex flex-col lg:flex-row gap-8 items-center py-8 lg:py-0">
+            <div className="flex flex-col items-center gap-4">
+                <div className="group relative">
+                    <div className="absolute -inset-0.5 bg-primary rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
 
-                <div className="relative bg-[#333333] rounded-2xl p-8">
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-80">
-                        <div className="relative w-full mb-6 flex justify-center">
-                            <div className="relative">
-                                <img
-                                    src="/images/logo_login.png"
-                                    alt="Logo"
-                                    className="h-52 w-auto"
-                                />
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <h1 className="text-4xl font-bold text-primary drop-shadow-lg">
-                                        SKINHOLDER
-                                    </h1>
+                    <div className="relative bg-[#333333] rounded-2xl p-8">
+                        <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-80">
+                            <div className="relative w-full mb-6 flex justify-center">
+                                <div className="relative">
+                                    <img
+                                        src="/images/logo_login.png"
+                                        alt="Logo"
+                                        className="h-52 w-auto"
+                                    />
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <h1 className="text-4xl font-bold text-primary drop-shadow-lg">
+                                            SKINHOLDER
+                                        </h1>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <input
-                            placeholder="Usuario"
-                            value={username}
-                            onChange={e => setUsername(e.target.value)}
-                            className="px-4 py-2 border text-gray-200 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-transparent"
-                        />
+                            <input
+                                placeholder="Usuario"
+                                value={username}
+                                onChange={e => setUsername(e.target.value)}
+                                className="px-4 py-2 border text-gray-200 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-transparent"
+                            />
 
-                        <input
-                            type="password"
-                            placeholder="Contraseña"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            className="px-4 py-2 border text-gray-200 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-transparent"
-                        />
+                            <input
+                                type="password"
+                                placeholder="Contraseña"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                className="px-4 py-2 border text-gray-200 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-transparent"
+                            />
 
-                        <button
-                            type="button"
-                            onClick={onForgotPassword}
-                            className="text-primary text-sm hover:underline self-center"
-                        >
-                            ¿Olvidaste tu contraseña?
-                        </button>
+                            <button
+                                type="button"
+                                onClick={onForgotPassword}
+                                className="text-primary text-sm hover:underline self-center"
+                            >
+                                ¿Olvidaste tu contraseña?
+                            </button>
 
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center min-h-[42px]"
-                        >
-                            {loading ? (<div className="w-5 h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin"></div>) : ('Iniciar sesión')}
-                        </button>
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center min-h-[42px]"
+                            >
+                                {loading ? (<div className="w-5 h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin"></div>) : ('Iniciar sesión')}
+                            </button>
 
-                        <button
-                            type="button"
-                            onClick={() => setShowRegisterPanel(!showRegisterPanel)}
-                            className="text-gray-400 text-sm hover:text-primary transition-colors"
-                        >
-                            ¿No tienes acceso? Solicítalo aquí
-                        </button>
-                    </form>
+                            <button
+                                type="button"
+                                onClick={() => setShowRegisterPanel(!showRegisterPanel)}
+                                className="text-gray-400 text-sm hover:text-primary transition-colors"
+                            >
+                                ¿No tienes acceso? Solicítalo aquí
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div className="flex justify-between text-sm w-full px-2">
+                    <a href="https://skinholder.jagoba.dev/about" className="text-primary hover:text-primary-hover transition-colors">
+                        Acerca de SkinHolder
+                    </a>
+                    <a href="#" className="text-primary hover:text-primary-hover transition-colors">
+                        Link2
+                    </a>
                 </div>
             </div>
 
