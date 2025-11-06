@@ -93,11 +93,11 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
                 </div>
 
                 <div className="flex justify-between text-sm w-full px-2">
-                    <a href="https://skinholder.jagoba.dev/about" className="text-primary hover:text-primary-hover transition-colors">
-                        Acerca de SkinHolder
+                    <a href="/about" className="text-primary hover:text-primary-hover transition-colors">
+                        About SkinHolder
                     </a>
-                    <a href="#" className="text-primary hover:text-primary-hover transition-colors">
-                        Link2
+                    <a href="https://jagoba.dev" className="text-primary hover:text-primary-hover transition-colors">
+                        Made by jagoba.dev
                     </a>
                 </div>
             </div>

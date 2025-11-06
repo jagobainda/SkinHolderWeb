@@ -1,15 +1,18 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useLoginViewModel } from '@presentation/viewmodels/useLoginViewModel'
 import { LoginForm } from '@ui/components/login/LoginForm.tsx'
 import { useNavigate } from 'react-router-dom'
 import { useToast } from '@ui/hooks/useToast'
 import { ToastContainer } from '@ui/components/shared/ToastContainer'
 import { AuthApi } from "@data/datasources/AuthApi.ts";
+import {useDocumentTitle} from "@ui/hooks/useDocumentTitle.ts";
 
 export const LoginPage: React.FC = () => {
     const { login, requestAccess, isLoading, requestAccessLoading } = useLoginViewModel()
     const { toasts, showToast, removeToast } = useToast()
     const navigate = useNavigate()
+
+    useDocumentTitle("SkinHolder - Login")
 
     useEffect(() => {
         const checkToken = async () => {
