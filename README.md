@@ -1,6 +1,6 @@
 # 🎮 Skin Holder Web
 
-A modern web application built with React, TypeScript, Tailwind and Clean Architecture principles for managing and organizing game skins.
+A modern web application built with React, TypeScript, Tailwind, and Clean Architecture principles for tracking game skin prices across different marketplaces.
 
 ## 🚀 Tech Stack
 
