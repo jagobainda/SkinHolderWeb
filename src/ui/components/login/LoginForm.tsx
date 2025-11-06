@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from "react-router-dom";
 
 type Props = {
     onSubmit: (username: string, password: string) => void
@@ -93,9 +94,9 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
                 </div>
 
                 <div className="flex justify-between text-sm w-full px-2">
-                    <a href="/about" className="text-primary hover:text-primary-hover transition-colors">
+                    <Link to="/about" className="text-primary hover:text-primary-hover transition-colors">
                         About SkinHolder
-                    </a>
+                    </Link>
                     <a href="https://jagoba.dev" className="text-primary hover:text-primary-hover transition-colors">
                         Made by jagoba.dev
                     </a>
