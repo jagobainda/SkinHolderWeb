@@ -1,6 +1,6 @@
 # 🎮 Skin Holder Web
 
-A modern web application built with React, TypeScript, and Clean Architecture principles for managing and organizing game skins.
+A modern web application built with React, TypeScript, Tailwind and Clean Architecture principles for managing and organizing game skins.
 
 ## 🚀 Tech Stack
 
@@ -95,7 +95,7 @@ This project implements **Clean Architecture** with the following layers:
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/jagobainda/SkinHolderWeb.git
 cd skin-holder-web
 ```
 
