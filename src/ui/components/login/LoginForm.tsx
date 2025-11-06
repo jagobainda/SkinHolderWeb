@@ -69,7 +69,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
                             <button
                                 type="button"
                                 onClick={onForgotPassword}
-                                className="text-primary text-sm hover:underline self-center"
+                                className="text-primary text-sm hover:underline hover:cursor-pointer self-center"
                             >
                                 ¿Olvidaste tu contraseña?
                             </button>
@@ -77,7 +77,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center min-h-[42px]"
+                                className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed hover:cursor-pointer transition-colors flex items-center justify-center min-h-[42px]"
                             >
                                 {loading ? (<div className="w-5 h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin"></div>) : ('Iniciar sesión')}
                             </button>
@@ -85,7 +85,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
                             <button
                                 type="button"
                                 onClick={() => setShowRegisterPanel(!showRegisterPanel)}
-                                className="text-gray-400 text-sm hover:text-primary transition-colors"
+                                className="text-gray-400 text-sm hover:text-primary hover:cursor-pointer transition-colors"
                             >
                                 ¿No tienes acceso? Solicítalo aquí
                             </button>
@@ -112,7 +112,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
                             <h2 className="text-2xl font-bold text-primary">Solicitar Acceso</h2>
                             <button
                                 onClick={() => setShowRegisterPanel(false)}
-                                className="text-gray-400 hover:text-gray-200 text-2xl"
+                                className="text-gray-400 hover:text-gray-200 hover:cursor-pointer text-2xl"
                             >
                                 ×
                             </button>
@@ -140,7 +140,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
                             <button
                                 type="submit"
                                 disabled={requestAccessLoading}
-                                className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center min-h-[42px]"
+                                className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed hover:cursor-pointer transition-colors flex items-center justify-center min-h-[42px]"
                             >
                                 {requestAccessLoading ? (<div className="w-5 h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin"></div>) : ('Solicitar Acceso')}
                             </button>
