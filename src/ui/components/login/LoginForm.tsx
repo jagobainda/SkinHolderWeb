@@ -34,8 +34,8 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
                 <div className="group relative">
                     <div className="absolute -inset-0.5 bg-primary rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
 
-                    <div className="relative bg-[#333333] rounded-2xl p-8">
-                        <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-80">
+                    <div className="relative bg-[#333333] rounded-2xl p-8 w-88">
+                        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                             <div className="relative w-full mb-6 flex justify-center">
                                 <div className="relative">
                                     <img
@@ -107,7 +107,7 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
                 <div className="group relative">
                     <div className="absolute -inset-0.5 bg-primary rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
 
-                    <div className="relative bg-[#333333] rounded-2xl p-8 w-96">
+                    <div className="relative bg-[#333333] rounded-2xl p-8 w-88">
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-2xl font-bold text-primary">Solicitar Acceso</h2>
                             <button

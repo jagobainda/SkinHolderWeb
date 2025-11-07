@@ -24,3 +24,7 @@
 .animate-slide-in-bottom {
     animation: slide-in-bottom 0.15s ease-out;
 }
+
+.w-88 {
+    width: calc(var(--spacing) * 88)
+}
