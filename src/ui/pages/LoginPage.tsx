@@ -41,7 +41,7 @@ export const LoginPage: React.FC = () => {
     }
 
     const handleForgotPassword = () => {
-        console.log('Forgot password clicked')
+        showToast('info', 'Acceso Restringido', 'Contacta con soporte en skinholder@jagoba.dev')
     }
 
     const handleRequestAccess = async (email: string) => {
