@@ -2,6 +2,21 @@ import { useMemo } from 'react'
 
 const translations = {
     es: {
+        login: {
+            title: 'SKINHOLDER',
+            username: 'Usuario',
+            password: 'Contraseña',
+            forgotPassword: '¿Olvidaste tu contraseña?',
+            loginButton: 'Iniciar sesión',
+            noAccess: '¿No tienes acceso? Solicítalo aquí',
+            requestAccessTitle: 'Solicitar Acceso',
+            requestAccessDescription: 'Esta es una herramienta privada.',
+            requestAccessSubtitle: 'Introduce tu email para solicitar acceso. Te enviaremos las credenciales una vez que tu solicitud sea aprobada.',
+            emailPlaceholder: 'tu@email.com',
+            requestAccessButton: 'Solicitar Acceso',
+            aboutLink: 'About SkinHolder',
+            madeBy: 'Made by jagoba.dev',
+        },
         about: {
             title: 'SKINHOLDER',
             subtitle: 'Seguimiento técnico de inversiones en skins de CS2',
@@ -31,6 +46,21 @@ const translations = {
         }
     },
     en: {
+        login: {
+            title: 'SKINHOLDER',
+            username: 'Username',
+            password: 'Password',
+            forgotPassword: 'Forgot your password?',
+            loginButton: 'Sign in',
+            noAccess: "Don't have access? Request it here",
+            requestAccessTitle: 'Request Access',
+            requestAccessDescription: 'This is a private tool.',
+            requestAccessSubtitle: 'Enter your email to request access. We will send you the credentials once your request is approved.',
+            emailPlaceholder: 'your@email.com',
+            requestAccessButton: 'Request Access',
+            aboutLink: 'About SkinHolder',
+            madeBy: 'Made by jagoba.dev',
+        },
         about: {
             title: 'SKINHOLDER',
             subtitle: 'Technical tracking of CS2 skin investments',
