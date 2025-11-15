@@ -43,6 +43,9 @@ const translations = {
             syncProcess: 'Proceso de sincronización automática cada 24h',
             backToLogin: 'Volver al Login',
             madeBy: 'Made by jagoba.dev',
+        },
+        main: {
+            // TODO
         }
     },
     en: {
@@ -87,6 +90,9 @@ const translations = {
             syncProcess: 'Automatic synchronization process every 24h',
             backToLogin: 'Back to Login',
             madeBy: 'Made by jagoba.dev',
+        },
+        main: {
+            // TODO
         }
     }
 }

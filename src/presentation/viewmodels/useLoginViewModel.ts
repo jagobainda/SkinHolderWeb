@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { loginUser } from '@domain/usecases/LoginUser'
 import { AuthRepositoryImpl } from '@data/repositories/AuthRepositoryImpl'
 import type { LoginRequest } from '@domain/models/LoginRequest'
+import { requestAccessUseCase } from "@domain/usecases/RequestAccess.ts";
 
 const repo = new AuthRepositoryImpl()
 
@@ -68,7 +69,7 @@ export const useLoginViewModel = () => {
     const requestAccess = async (email: string, showToast: (type: 'success' | 'danger', title: string, message: string) => void): Promise<boolean> => {
         setRequestAccessLoading(true)
         try {
-            const status = await repo.requestAccess(email)
+            const status = await requestAccessUseCase(repo, email)
             if (status === 200 || status === 201) {
                 showToast('success', '¡Solicitud enviada!', 'Recibirás un email cuando tu acceso sea aprobado.')
                 return true
