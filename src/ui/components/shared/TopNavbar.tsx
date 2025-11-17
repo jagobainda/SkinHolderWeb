@@ -30,8 +30,7 @@ export const TopNavbar: React.FC = () => {
     return (
         <nav className="bg-[#333333] border-b border-gray-700 shadow-lg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
-                    {/* Botón hamburguesa (visible solo en móvil) */}
+                <div className="flex items-center h-16 lg:justify-between">
                     <button
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                         className="lg:hidden text-gray-300 hover:text-primary transition-colors p-2"
@@ -40,10 +39,9 @@ export const TopNavbar: React.FC = () => {
                         {isMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
                     </button>
 
-                    {/* Logo y nombre (centrado en móvil) */}
                     <button
                         onClick={() => handleNavigate('/home')}
-                        className="flex items-center gap-3 hover:opacity-80 transition-opacity lg:flex-none absolute left-1/2 transform -translate-x-1/2 lg:relative lg:left-auto lg:transform-none"
+                        className="flex items-center gap-3 hover:opacity-80 transition-opacity absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0"
                     >
                         <img
                             src="/images/logo_login.png"
@@ -53,7 +51,6 @@ export const TopNavbar: React.FC = () => {
                         <span className="text-2xl font-bold text-primary">SkinHolder</span>
                     </button>
 
-                    {/* Menú desktop */}
                     <div className="hidden lg:flex items-center gap-2">
                         {navItems.map(({ path, label, icon: Icon }) => (
                             <button
@@ -81,11 +78,9 @@ export const TopNavbar: React.FC = () => {
                         </button>
                     </div>
 
-                    {/* Espaciador para equilibrar el layout en móvil */}
                     <div className="lg:hidden w-10" />
                 </div>
 
-                {/* Menú móvil desplegable */}
                 {isMenuOpen && (
                     <div className="lg:hidden py-4 space-y-2 border-t border-gray-700">
                         {navItems.map(({ path, label, icon: Icon }) => (
