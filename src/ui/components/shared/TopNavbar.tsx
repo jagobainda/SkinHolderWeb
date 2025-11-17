@@ -17,7 +17,7 @@ export const TopNavbar: React.FC = () => {
         { path: '/home', label: 'Inicio', icon: FiHome },
         { path: '/registros', label: 'Registros', icon: FiFileText },
         { path: '/items', label: 'Items', icon: FiPackage },
-        { path: '/settings', label: 'Configuración', icon: FiUser }
+        { path: '/config', label: 'Configuración', icon: FiUser }
     ]
 
     const isActive = (path: string) => location.pathname === path
