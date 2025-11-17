@@ -1,5 +1,6 @@
 import api from './ApiClient'
 import type { Registro } from '@domain/models/Registro'
+import type { VarianceStats } from '@domain/models/DashboardStats'
 
 export const RegistroApi = {
     async getLastRegistro(): Promise<Registro | null> {
@@ -36,6 +37,25 @@ export const RegistroApi = {
             return response.status >= 200 && response.status < 300
         } catch {
             return false
+        }
+    },
+
+    async getVarianceStats(): Promise<VarianceStats> {
+        try {
+            const response = await api.get('/Registros/GetVarianceStats')
+            return response.data as VarianceStats
+        } catch {
+            return {
+                weeklyVariancePercentSteam: -101,
+                monthlyVariancePercentSteam: -101,
+                yearlyVariancePercentSteam: -101,
+                weeklyVariancePercentGamerPay: -101,
+                monthlyVariancePercentGamerPay: -101,
+                yearlyVariancePercentGamerPay: -101,
+                weeklyVariancePercentCSFloat: -101,
+                monthlyVariancePercentCSFloat: -101,
+                yearlyVariancePercentCSFloat: -101
+            }
         }
     }
 }
