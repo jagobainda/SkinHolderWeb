@@ -58,14 +58,14 @@ export const TopNavbar: React.FC = () => {
                             <button
                                 key={path}
                                 onClick={() => navigate(path)}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+                                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 min-w-fit ${
                                     isActive(path)
                                         ? 'bg-primary text-gray-900 font-semibold'
-                                        : 'text-gray-300 hover:bg-gray-700 hover:text-primary'
+                                        : 'text-gray-300 hover:bg-gray-700 hover:text-primary font-medium'
                                 }`}
                             >
                                 <Icon className="w-5 h-5" />
-                                <span>{label}</span>
+                                <span className="whitespace-nowrap">{label}</span>
                             </button>
                         ))}
 

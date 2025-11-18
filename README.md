@@ -144,8 +144,3 @@ The project uses **Tailwind CSS 4** for styling with the official Vite plugin fo
 ## 📝 License
 
 This project is licensed under the terms specified in [LICENSE.txt](LICENSE.txt).
-
----
-
-Built with ❤️ using React, TypeScript, and Clean Architecture
-

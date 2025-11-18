@@ -1,9 +1,11 @@
 import React from 'react'
 import { TopNavbar } from '@ui/components/shared/TopNavbar'
 import { useDocumentTitle } from "@ui/hooks/useDocumentTitle.ts"
+import { useTranslation } from "@ui/hooks/useTranslation.ts";
 
 export const RegistrosPage: React.FC = () => {
-    useDocumentTitle("SkinHolder - Registros")
+    const { t } = useTranslation()
+    useDocumentTitle(`SkinHolder - ${t.main.navbar.records}`)
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-[#4A4A4A] to-[#2C2C2C]">

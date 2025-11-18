@@ -9,8 +9,8 @@ import { VarianceStatsCard } from '@ui/components/main/VarianceStatsCard'
 import { useTranslation } from "@ui/hooks/useTranslation.ts";
 
 export const MainPage: React.FC = () => {
-    useDocumentTitle("SkinHolder - Dashboard")
     const { t } = useTranslation()
+    useDocumentTitle(`SkinHolder - ${t.main.navbar.home}`)
     const { stats, isLoading, error } = useDashboardViewModel()
 
     return (
