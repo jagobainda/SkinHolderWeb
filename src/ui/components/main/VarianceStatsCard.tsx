@@ -3,6 +3,7 @@ import { FiTrendingUp, FiTrendingDown } from 'react-icons/fi'
 import { SiSteam } from 'react-icons/si'
 import { StatsCard } from './StatsCard'
 import type { VarianceStats } from '@domain/models/DashboardStats'
+import { useTranslation } from "@ui/hooks/useTranslation.ts";
 
 type Platform = 'steam' | 'gamerpay' | 'csfloat'
 
@@ -13,6 +14,7 @@ interface Props {
 export const VarianceStatsCard: React.FC<Props> = ({ stats }) => {
     const [selectedPlatform, setSelectedPlatform] = useState<Platform>('steam')
 
+    const { t } = useTranslation()
     if (!stats) return null
 
     const formatVariance = (value: number) => {
@@ -95,7 +97,7 @@ export const VarianceStatsCard: React.FC<Props> = ({ stats }) => {
     )
 
     return (
-        <StatsCard title="Varianza" icon={FiTrendingUp} iconColor="text-purple-400" actions={titleActions}>
+        <StatsCard title={t.main.dashboard.variance.title} icon={FiTrendingUp} iconColor="text-purple-400" actions={titleActions}>
             <div className="flex items-center justify-between">
                 <span className="text-gray-400">Última semana</span>
                 <div className="flex items-center gap-2">

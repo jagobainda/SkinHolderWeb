@@ -45,7 +45,36 @@ const translations = {
             madeBy: 'Made by jagoba.dev',
         },
         main: {
-            // TODO
+            navbar: {
+                home: 'Inicio',
+                records: 'Registros',
+                items: 'Items',
+                config: 'Configuración',
+                logout: 'Cerrar sesión'
+            },
+            dashboard: {
+                loading: 'Cargando estadísticas...',
+                connection: {
+                    title: 'SkinHolderDB',
+                    status: 'Estado',
+                    active: 'Activo',
+                    inactive: 'Inactivo',
+                    ping: 'Ping',
+                    uptime: 'Uptime'
+                },
+                lastRegistry: {
+                    title: 'Último Registro'
+                },
+                latency: {
+                    title: 'Latencia'
+                },
+                variance: {
+                    title: 'Varianza',
+                    lastWeek: 'Última semana',
+                    lastMonth: 'Último mes',
+                    lastYear: 'Último año'
+                }
+            }
         }
     },
     en: {
@@ -92,7 +121,36 @@ const translations = {
             madeBy: 'Made by jagoba.dev',
         },
         main: {
-            // TODO
+            navbar: {
+                home: 'Home',
+                records: 'Records',
+                items: 'Items',
+                config: 'Settings',
+                logout: 'Logout'
+            },
+            dashboard: {
+                loading: 'Loading statistics...',
+                connection: {
+                    title: 'SkinHolderDB',
+                    status: 'Status',
+                    active: 'Active',
+                    inactive: 'Inactive',
+                    ping: 'Ping',
+                    uptime: 'Uptime'
+                },
+                lastRegistry: {
+                    title: 'Last Record'
+                },
+                latency: {
+                    title: 'Latency'
+                },
+                variance: {
+                    title: 'Variance',
+                    lastWeek: 'Last week',
+                    lastMonth: 'Last month',
+                    lastYear: 'Last year'
+                }
+            }
         }
     }
 }

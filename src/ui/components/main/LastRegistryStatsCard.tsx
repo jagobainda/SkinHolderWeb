@@ -3,16 +3,18 @@ import { FiFileText } from 'react-icons/fi'
 import { SiSteam } from 'react-icons/si'
 import { StatsCard } from './StatsCard'
 import type { LastRegistryStats } from '@domain/models/DashboardStats'
+import { useTranslation } from '@ui/hooks/useTranslation'
 
 interface Props {
     stats: LastRegistryStats | null
 }
 
 export const LastRegistryStatsCard: React.FC<Props> = ({ stats }) => {
+    const { t } = useTranslation()
     if (!stats) return null
 
     return (
-        <StatsCard title="Último Registro" icon={FiFileText} iconColor="text-green-400">
+        <StatsCard title={t.main.dashboard.lastRegistry.title} icon={FiFileText} iconColor="text-green-400">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     <SiSteam className="text-blue-400" />

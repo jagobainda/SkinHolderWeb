@@ -6,9 +6,11 @@ import { ConnectionStatsCard } from '@ui/components/main/ConnectionStatsCard'
 import { LastRegistryStatsCard } from '@ui/components/main/LastRegistryStatsCard'
 import { LatencyStatsCard } from '@ui/components/main/LatencyStatsCard'
 import { VarianceStatsCard } from '@ui/components/main/VarianceStatsCard'
+import { useTranslation } from "@ui/hooks/useTranslation.ts";
 
 export const MainPage: React.FC = () => {
     useDocumentTitle("SkinHolder - Dashboard")
+    const { t } = useTranslation()
     const { stats, isLoading, error } = useDashboardViewModel()
 
     return (
@@ -19,7 +21,7 @@ export const MainPage: React.FC = () => {
                 {isLoading ? (
                     <div className="flex items-center gap-3">
                         <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-                        <span className="text-white text-xl">Cargando estadísticas...</span>
+                        <span className="text-white text-xl">{t.main.dashboard.loading}</span>
                     </div>
                 ) : error ? (
                     <div className="text-red-400 text-xl">{error}</div>

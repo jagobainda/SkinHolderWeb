@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { FiHome, FiFileText, FiPackage, FiUser, FiLogOut, FiMenu, FiX } from 'react-icons/fi'
+import { useTranslation } from "@ui/hooks/useTranslation.ts";
 
 export const TopNavbar: React.FC = () => {
+    const { t } = useTranslation()
     const navigate = useNavigate()
     const location = useLocation()
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -14,10 +16,10 @@ export const TopNavbar: React.FC = () => {
     }
 
     const navItems = [
-        { path: '/home', label: 'Inicio', icon: FiHome },
-        { path: '/registros', label: 'Registros', icon: FiFileText },
-        { path: '/items', label: 'Items', icon: FiPackage },
-        { path: '/config', label: 'Configuración', icon: FiUser }
+        { path: '/home', label: t.main.navbar.home, icon: FiHome },
+        { path: '/registros', label: t.main.navbar.records, icon: FiFileText },
+        { path: '/items', label: t.main.navbar.items, icon: FiPackage },
+        { path: '/config', label: t.main.navbar.config, icon: FiUser }
     ]
 
     const isActive = (path: string) => location.pathname === path
@@ -105,7 +107,7 @@ export const TopNavbar: React.FC = () => {
                             className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors duration-200"
                         >
                             <FiLogOut className="w-5 h-5" />
-                            <span>Cerrar sesión</span>
+                            <span>{t.main.navbar.logout}</span>
                         </button>
                     </div>
                 )}
