@@ -5,10 +5,6 @@ import './styles/global.css'
 createRoot(document.getElementById('root')!).render(<App />)
 
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/SteamSW.js").catch(err =>
-        console.error("Error registering SteamSW:", err)
-    );
-    navigator.serviceWorker.register("/GamerPaySW.js").catch(err =>
-        console.error("Error registering GamerPaySW:", err)
-    );
+    navigator.serviceWorker.register("/serviceworkers/SteamSW.js");
+    navigator.serviceWorker.register("/serviceworkers/GamerPaySW.js");
 }
