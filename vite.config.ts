@@ -5,6 +5,22 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
     plugins: [react(), tsconfigPaths(), tailwindcss()],
+    build: {
+        rollupOptions: {
+            input: {
+                main: '/index.html',
+                steamSW: '/public/serviceworkers/SteamSW.js',
+                gamerpaySW: '/public/serviceworkers/GamerPaySW.js'
+            },
+            output: {
+                entryFileNames: (chunkInfo) => {
+                    if (chunkInfo.name === 'steamSW') return 'SteamSW.js'
+                    if (chunkInfo.name === 'gamerpaySW') return 'GamerPaySW.js'
+                    return 'assets/[name]-[hash].js'
+                }
+            }
+        }
+    },
     server: {
         proxy: {
             '/api': {
