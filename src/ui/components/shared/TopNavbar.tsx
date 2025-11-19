@@ -30,7 +30,7 @@ export const TopNavbar: React.FC = () => {
     }
 
     return (
-        <nav className="bg-[#333333] border-b border-gray-700 shadow-lg">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-[#333333] border-b border-gray-700 shadow-lg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center h-16 lg:justify-between">
                     <button
@@ -43,7 +43,7 @@ export const TopNavbar: React.FC = () => {
 
                     <button
                         onClick={() => handleNavigate('/home')}
-                        className="flex items-center gap-3 hover:opacity-80 transition-opacity absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0"
+                        className="flex items-center gap-3 hover:opacity-80 transition-opacity absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 hover:cursor-pointer"
                     >
                         <img
                             src="/images/logo_login.png"
@@ -58,7 +58,7 @@ export const TopNavbar: React.FC = () => {
                             <button
                                 key={path}
                                 onClick={() => navigate(path)}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 min-w-fit ${
+                                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 min-w-fit hover:cursor-pointer ${
                                     isActive(path)
                                         ? 'bg-primary text-gray-900 font-semibold'
                                         : 'text-gray-300 hover:bg-gray-700 hover:text-primary font-medium'
@@ -73,10 +73,10 @@ export const TopNavbar: React.FC = () => {
 
                         <button
                             onClick={handleLogout}
-                            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors duration-200"
+                            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors duration-200 hover:cursor-pointer"
                         >
                             <FiLogOut className="w-5 h-5" />
-                            <span>Cerrar sesión</span>
+                            <span>{t.main.navbar.logout}</span>
                         </button>
                     </div>
 

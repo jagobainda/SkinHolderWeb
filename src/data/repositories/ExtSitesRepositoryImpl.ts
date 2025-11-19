@@ -9,4 +9,8 @@ export class ExtSitesRepositoryImpl implements IExtSitesRepository {
     async makeGamerPayRequest(): Promise<GamerPayItemInfo[]> {
         return await ExtSitesApi.makeGamerPayRequest()
     }
+
+    async makeGamerPayRequestFromProxy(): Promise<GamerPayItemInfo[]> {
+        return await ExtSitesApi.makeGamerPayRequestFromProxy()
+    }
 }

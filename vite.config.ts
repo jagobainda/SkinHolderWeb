@@ -12,6 +12,21 @@ export default defineConfig({
                 changeOrigin: true,
                 secure: false,
                 rewrite: (path) => path.replace(/^\/api/, '')
+            },
+            '/gamerpay-proxy': {
+                target: 'https://api.gamerpay.gg',
+                changeOrigin: true,
+                secure: false,
+                rewrite: (path) => path.replace(/^\/gamerpay-proxy/, '/prices')
+            },
+            '/steam-proxy': {
+                target: 'https://steamcommunity.com',
+                changeOrigin: true,
+                secure: false,
+                rewrite: (path) => {
+                    const url = new URL(path, 'http://localhost');
+                    return url.searchParams.get('url') || path;
+                }
             }
         }
     }

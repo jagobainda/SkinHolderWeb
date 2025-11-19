@@ -3,3 +3,8 @@ import { App } from '@app/App'
 import './styles/global.css'
 
 createRoot(document.getElementById('root')!).render(<App />)
+
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/serviceworkers/SteamSW.js");
+    navigator.serviceWorker.register("/serviceworkers/GamerPaySW.js");
+}
