@@ -2,26 +2,22 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import tailwindcss from '@tailwindcss/vite'
-import path from 'path'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig({
-    plugins: [react(), tsconfigPaths(), tailwindcss()],
-    build: {
-        rollupOptions: {
-            input: {
-                main: path.resolve(__dirname, 'index.html'),
-                steamSW: path.resolve(__dirname, 'src/serviceworkers/SteamSW.js'),
-                gamerpaySW: path.resolve(__dirname, 'src/serviceworkers/GamerPaySW.js')
-            },
-            output: {
-                entryFileNames: (chunkInfo) => {
-                    if (chunkInfo.name === 'steamSW') return 'SteamSW.js'
-                    if (chunkInfo.name === 'gamerpaySW') return 'GamerPaySW.js'
-                    return 'assets/[name]-[hash].js'
+    plugins: [
+        react(),
+        tsconfigPaths(),
+        tailwindcss(),
+        viteStaticCopy({
+            targets: [
+                {
+                    src: 'public/serviceworkers/*.js',
+                    dest: ''
                 }
-            }
-        }
-    },
+            ]
+        })
+    ],
     server: {
         proxy: {
             '/api': {
