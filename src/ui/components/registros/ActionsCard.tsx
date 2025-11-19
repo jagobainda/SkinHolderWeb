@@ -3,7 +3,6 @@ import React from 'react'
 interface ActionsCardProps {
     onConsultar: () => void
     onHistorial: () => void
-    onExportarJson: () => void
     isEnabled: boolean
 }
 

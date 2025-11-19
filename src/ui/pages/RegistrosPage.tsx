@@ -10,7 +10,7 @@ export const RegistrosPage: React.FC = () => {
     const { t } = useTranslation()
     useDocumentTitle(`SkinHolder - ${t.main.navbar.records}`)
 
-    const { state, consultar, mostrarDetalles, historialRegistros, exportarJson } = useRegistrosViewModel()
+    const { state, consultar, mostrarDetalles, historialRegistros } = useRegistrosViewModel()
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-[#4A4A4A] to-[#2C2C2C] pt-16">
@@ -29,7 +29,6 @@ export const RegistrosPage: React.FC = () => {
                         <ActionsCard
                             onConsultar={consultar}
                             onHistorial={historialRegistros}
-                            onExportarJson={exportarJson}
                             isEnabled={state.botonesHabilitados}
                         />
 
