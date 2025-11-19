@@ -9,8 +9,8 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 main: '/index.html',
-                steamSW: '/public/serviceworkers/SteamSW.js',
-                gamerpaySW: '/public/serviceworkers/GamerPaySW.js'
+                steamSW: '/src/serviceworkers/SteamSW.js',
+                gamerpaySW: '/src/serviceworkers/GamerPaySW.js'
             },
             output: {
                 entryFileNames: (chunkInfo) => {
