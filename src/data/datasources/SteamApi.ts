@@ -1,4 +1,3 @@
-import axios from 'axios'
 import type { SteamItemInfo } from '@domain/models/SteamItemInfo'
 
 const MAX_RETRY_ATTEMPTS = 5
@@ -18,12 +17,11 @@ export const SteamApi = {
 
         while (attempts <= MAX_RETRY_ATTEMPTS) {
             try {
-                const response = await axios.get(proxyUrl, {
-                    responseType: 'text'
-                })
+                const response = await fetch(proxyUrl)
 
                 if (response.status === 200) {
-                    const price = extractPriceFromJson(response.data)
+                    const data = await response.text()
+                    const price = extractPriceFromJson(data)
 
                     return {
                         hashName: marketHashName,
