@@ -79,7 +79,7 @@ export const useRegistrosViewModel = () => {
     }, [])
 
     const obtenerPrecios = useCallback(async (items: UserItem[]): Promise<ItemPrecio[]> => {
-        const gamerPayResponse = await ExtSitesApi.makeGamerPayRequest()
+        const gamerPayResponse = await ExtSitesApi.makeGamerPayRequestFromProxy()
 
         if (gamerPayResponse.length === 0) throw new Error('No se han podido obtener los items de GamerPay.')
 

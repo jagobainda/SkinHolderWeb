@@ -1,4 +1,5 @@
 import axios from 'axios'
+import api from './ApiClient'
 import type { GamerPayItemInfo } from '@domain/models/GamerPayItemInfo'
 
 interface GamerPayApiResponse {
@@ -38,7 +39,7 @@ export const ExtSitesApi = {
 
     async makeGamerPayRequestFromProxy(): Promise<GamerPayItemInfo[]> {
         try {
-            const response = await axios.get<GamerPayApiResponse[]>('/External/GetGamerPayPrices')
+            const response = await api.get<GamerPayApiResponse[]>('/External/GetGamerPayPrices')
 
             if (Array.isArray(response.data)) {
                 return response.data.map((element) => ({
