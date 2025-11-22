@@ -4,7 +4,14 @@ import './styles/global.css'
 
 createRoot(document.getElementById('root')!).render(<App />)
 
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/SteamSW.js");
-    navigator.serviceWorker.register("/GamerPaySW.js");
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/serviceworkers/SteamSW.js')
+            .then(registration => {
+                console.log('Service worker registered:', registration)
+            })
+            .catch(error => {
+                console.error('Service worker registration failed:', error)
+            })
+    })
 }

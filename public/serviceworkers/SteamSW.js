@@ -1,3 +1,11 @@
+self.addEventListener("install", event => {
+    self.skipWaiting();
+});
+
+self.addEventListener("activate", event => {
+    event.waitUntil(clients.claim());
+});
+
 self.addEventListener("fetch", event => {
     const url = new URL(event.request.url);
 
@@ -9,11 +17,19 @@ self.addEventListener("fetch", event => {
                 .then(res => new Response(res.body, {
                     status: res.status,
                     headers: {
-                        "Content-Type": "text/plain",
+                        "Content-Type": "application/json",
                         "Access-Control-Allow-Origin": "*"
                     }
                 }))
-                .catch(() => new Response("{}", { status: 500 }))
+                .catch(err => {
+                    console.error("Service worker fetch error:", err);
+                    return new Response("{}", {
+                        status: 500,
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    });
+                })
         );
     }
 });
