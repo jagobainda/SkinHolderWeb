@@ -8,6 +8,13 @@ import type { Registro } from '@domain/models/Registro'
 import type { UserItem } from '@domain/models/UserItem'
 import type { ItemPrecio } from '@domain/models/ItemPrecio'
 import type { GamerPayItemInfo } from '@domain/models/GamerPayItemInfo'
+import { ExtSitesRepositoryImpl } from "@data/repositories/ExtSitesRepositoryImpl.ts";
+import { RegistroRepositoryImpl } from "@data/repositories/RegistroRepositoryImpl.ts";
+import { UserItemRepositoryImpl } from "@data/repositories/UserItemRepositoryImpl.ts";
+
+const extSitesRepository = new ExtSitesRepositoryImpl()
+const registrosRepository = new RegistroRepositoryImpl()
+const userItemRepository = new UserItemRepositoryImpl()
 
 interface RegistrosState {
     totalSteam: number
