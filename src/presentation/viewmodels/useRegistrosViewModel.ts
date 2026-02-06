@@ -34,7 +34,6 @@ interface RegistrosState {
 }
 
 export const useRegistrosViewModel = () => {
-    // Repositorios
     const registroRepository = useMemo(() => new RegistroRepositoryImpl(), [])
     const userItemRepository = useMemo(() => new UserItemRepositoryImpl(), [])
     const steamRepository = useMemo(() => new SteamRepositoryImpl(), [])
@@ -90,7 +89,12 @@ export const useRegistrosViewModel = () => {
         return await getUserItemsUseCase(userItemRepository)
     }, [userItemRepository])
 
-    const obtenerPrecios = useCallback(async (items: UserItem[]): Promise<ItemPrecio[]> => {
+    const obtenerPrecios = useCallback(async (items: UserItem[]): Promise<{
+        precios: ItemPrecio[]
+        totalSteam: number
+        totalGamerPay: number
+        totalCSFloat: number
+    }> => {
         const gamerPayResponse = await getGamerPayItemsUseCase(extSitesRepository)
 
         if (gamerPayResponse.length === 0) throw new Error('No se han podido obtener los items de GamerPay.')
@@ -152,19 +156,24 @@ export const useRegistrosViewModel = () => {
             totalCSFloat
         }))
 
-        return precios
+        return { precios, totalSteam, totalGamerPay, totalCSFloat }
     }, [extSitesRepository, steamRepository])
 
-    const guardarRegistro = useCallback(async (precios: ItemPrecio[]): Promise<boolean> => {
+    const guardarRegistro = useCallback(async (
+        precios: ItemPrecio[],
+        totalSteam: number,
+        totalGamerPay: number,
+        totalCSFloat: number
+    ): Promise<boolean> => {
         const userId = localStorage.getItem('userId')
         if (!userId) throw new Error('No se encontró el ID del usuario')
 
         const registro: Registro = {
             registroid: 0,
             fechahora: new Date().toISOString(),
-            totalsteam: state.totalSteam,
-            totalgamerpay: state.totalGamerPay,
-            totalcsfloat: state.totalCSFloat,
+            totalsteam: totalSteam,
+            totalgamerpay: totalGamerPay,
+            totalcsfloat: totalCSFloat,
             userid: parseInt(userId)
         }
 
@@ -185,7 +194,7 @@ export const useRegistrosViewModel = () => {
         setItemPrecios(preciosConRegistro)
 
         return true
-    }, [state.totalSteam, state.totalGamerPay, state.totalCSFloat, registroRepository, itemPrecioRepository])
+    }, [registroRepository, itemPrecioRepository])
 
     const consultar = useCallback(async () => {
         setState((prev) => ({
@@ -205,14 +214,14 @@ export const useRegistrosViewModel = () => {
             const items = await obtenerUserItems()
             setState((prev) => ({ ...prev, totalItems: items.length }))
 
-            const precios = await obtenerPrecios(items)
-            await guardarRegistro(precios)
+            const { precios, totalSteam, totalGamerPay, totalCSFloat } = await obtenerPrecios(items)
+            await guardarRegistro(precios, totalSteam, totalGamerPay, totalCSFloat)
 
             setState((prev) => ({
                 ...prev,
-                detallesSteamEnabled: prev.totalSteam > 0,
-                detallesGamerPayEnabled: prev.totalGamerPay > 0,
-                detallesCSFloatEnabled: prev.totalCSFloat > 0
+                detallesSteamEnabled: totalSteam > 0,
+                detallesGamerPayEnabled: totalGamerPay > 0,
+                detallesCSFloatEnabled: totalCSFloat > 0
             }))
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Error desconocido al consultar precios'
