@@ -1,14 +1,7 @@
 import type { Registro } from '@domain/models/Registro'
+import type { VarianceStats } from '@domain/models/DashboardStats'
+import type { IRegistroRepository } from '@domain/usecases/RegistroUseCases'
 import { RegistroApi } from '@data/datasources/RegistroApi'
-import type { VarianceStats } from "@domain/models/DashboardStats.ts";
-
-export interface IRegistroRepository {
-    getLastRegistro(): Promise<Registro | null>
-    getRegistros(): Promise<Registro[]>
-    createRegistro(registro: Registro): Promise<number>
-    deleteRegistro(registroId: number): Promise<boolean>
-    getVarianceStats(): Promise<VarianceStats>
-}
 
 export class RegistroRepositoryImpl implements IRegistroRepository {
     async getLastRegistro(): Promise<Registro | null> {

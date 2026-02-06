@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import type { DashboardStats } from '@domain/models/DashboardStats'
 import { RegistroRepositoryImpl } from '@data/repositories/RegistroRepositoryImpl'
 import { LatencyService } from '@data/services/LatencyService'
+import { getLastRegistroUseCase, getVarianceStatsUseCase } from '@domain/usecases/RegistroUseCases'
 
 export const useDashboardViewModel = () => {
     const [stats, setStats] = useState<DashboardStats | null>(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
-    const registroRepository = new RegistroRepositoryImpl()
-    const latencyService = new LatencyService()
+    const registroRepository = useMemo(() => new RegistroRepositoryImpl(), [])
+    const latencyService = useMemo(() => new LatencyService(), [])
 
     const calculateUptime = (): number => {
         const startTime = localStorage.getItem('app_start_time')
@@ -51,8 +52,8 @@ export const useDashboardViewModel = () => {
 
         try {
             const [lastRegistro, varianceStats, dbPing, externalLatencies] = await Promise.all([
-                registroRepository.getLastRegistro(),
-                registroRepository.getVarianceStats(),
+                getLastRegistroUseCase(registroRepository),
+                getVarianceStatsUseCase(registroRepository),
                 latencyService.measureDatabaseLatency(),
                 latencyService.measureAllLatencies()
             ])

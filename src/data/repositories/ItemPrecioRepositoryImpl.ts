@@ -1,11 +1,7 @@
 import type { ItemPrecio } from '@domain/models/ItemPrecio'
+import type { IItemPrecioRepository } from '@domain/usecases/ItemPrecioUseCases'
 import { ItemPrecioApi } from '@data/datasources/ItemPrecioApi'
 
-export interface IItemPrecioRepository {
-    getItemPrecios(registroId: number): Promise<ItemPrecio[]>
-    createItemPrecios(itemPrecios: ItemPrecio[]): Promise<boolean>
-    deleteItemPrecios(registroId: number): Promise<boolean>
-}
 
 export class ItemPrecioRepositoryImpl implements IItemPrecioRepository {
     async getItemPrecios(registroId: number): Promise<ItemPrecio[]> {

@@ -1,20 +1,18 @@
-import { useState, useCallback } from 'react'
-import { RegistroApi } from '@data/datasources/RegistroApi'
-import { UserItemApi } from '@data/datasources/UserItemApi'
-import { SteamApi } from '@data/datasources/SteamApi'
-import { ExtSitesApi } from '@data/datasources/ExtSitesApi'
-import { ItemPrecioApi } from '@data/datasources/ItemPrecioApi'
+import { useState, useCallback, useMemo } from 'react'
+import { RegistroRepositoryImpl } from '@data/repositories/RegistroRepositoryImpl'
+import { UserItemRepositoryImpl } from '@data/repositories/UserItemRepositoryImpl'
+import { SteamRepositoryImpl } from '@data/repositories/SteamRepositoryImpl'
+import { ExtSitesRepositoryImpl } from '@data/repositories/ExtSitesRepositoryImpl'
+import { ItemPrecioRepositoryImpl } from '@data/repositories/ItemPrecioRepositoryImpl'
+import { getUserItemsUseCase } from '@domain/usecases/GetUserItems'
+import { getGamerPayItemsUseCase } from '@domain/usecases/GetGamerPayItems'
+import { getSteamPriceUseCase } from '@domain/usecases/GetSteamPrice'
+import { createRegistroUseCase } from '@domain/usecases/RegistroUseCases'
+import { createItemPreciosUseCase } from '@domain/usecases/ItemPrecioUseCases'
 import type { Registro } from '@domain/models/Registro'
 import type { UserItem } from '@domain/models/UserItem'
 import type { ItemPrecio } from '@domain/models/ItemPrecio'
 import type { GamerPayItemInfo } from '@domain/models/GamerPayItemInfo'
-//import { ExtSitesRepositoryImpl } from "@data/repositories/ExtSitesRepositoryImpl.ts";
-//import { RegistroRepositoryImpl } from "@data/repositories/RegistroRepositoryImpl.ts";
-//import { UserItemRepositoryImpl } from "@data/repositories/UserItemRepositoryImpl.ts";
-
-//const extSitesRepository = new ExtSitesRepositoryImpl()
-//const registrosRepository = new RegistroRepositoryImpl()
-//const userItemRepository = new UserItemRepositoryImpl()
 
 interface RegistrosState {
     totalSteam: number
@@ -36,6 +34,13 @@ interface RegistrosState {
 }
 
 export const useRegistrosViewModel = () => {
+    // Repositorios
+    const registroRepository = useMemo(() => new RegistroRepositoryImpl(), [])
+    const userItemRepository = useMemo(() => new UserItemRepositoryImpl(), [])
+    const steamRepository = useMemo(() => new SteamRepositoryImpl(), [])
+    const extSitesRepository = useMemo(() => new ExtSitesRepositoryImpl(), [])
+    const itemPrecioRepository = useMemo(() => new ItemPrecioRepositoryImpl(), [])
+
     const [state, setState] = useState<RegistrosState>({
         totalSteam: 0,
         totalGamerPay: 0,
@@ -82,11 +87,11 @@ export const useRegistrosViewModel = () => {
     }, [])
 
     const obtenerUserItems = useCallback(async (): Promise<UserItem[]> => {
-        return await UserItemApi.getUserItems()
-    }, [])
+        return await getUserItemsUseCase(userItemRepository)
+    }, [userItemRepository])
 
     const obtenerPrecios = useCallback(async (items: UserItem[]): Promise<ItemPrecio[]> => {
-        const gamerPayResponse = await ExtSitesApi.makeGamerPayRequestFromProxy()
+        const gamerPayResponse = await getGamerPayItemsUseCase(extSitesRepository)
 
         if (gamerPayResponse.length === 0) throw new Error('No se han podido obtener los items de GamerPay.')
 
@@ -101,7 +106,7 @@ export const useRegistrosViewModel = () => {
         for (let i = 0; i < items.length; i++) {
             const userItem = items[i]
 
-            const steamResponse = await SteamApi.getPriceOverview(userItem.steamHashName)
+            const steamResponse = await getSteamPriceUseCase(steamRepository, userItem.steamHashName)
 
             const gamerPayItem = gamerPayResponse.find((gp: GamerPayItemInfo) => gp.name === userItem.gamerPayName)
 
@@ -109,7 +114,7 @@ export const useRegistrosViewModel = () => {
             if (steamResponse.isError) errorSteam++
             if (!gamerPayItem) noListadosGamerPay++
 
-            if (steamResponse.price > 0)totalSteam += steamResponse.price * userItem.cantidad
+            if (steamResponse.price > 0) totalSteam += steamResponse.price * userItem.cantidad
 
             if (gamerPayItem) totalGamerPay += gamerPayItem.price * userItem.cantidad
 
@@ -148,7 +153,7 @@ export const useRegistrosViewModel = () => {
         }))
 
         return precios
-    }, [])
+    }, [extSitesRepository, steamRepository])
 
     const guardarRegistro = useCallback(async (precios: ItemPrecio[]): Promise<boolean> => {
         const userId = localStorage.getItem('userId')
@@ -163,7 +168,7 @@ export const useRegistrosViewModel = () => {
             userid: parseInt(userId)
         }
 
-        const registroId = await RegistroApi.createRegistro(registro)
+        const registroId = await createRegistroUseCase(registroRepository, registro)
 
         if (registroId < 1) throw new Error('Error al crear el registro')
 
@@ -172,7 +177,7 @@ export const useRegistrosViewModel = () => {
             registroid: registroId
         }))
 
-        const successItemPrecios = await ItemPrecioApi.createItemPrecios(preciosConRegistro)
+        const successItemPrecios = await createItemPreciosUseCase(itemPrecioRepository, preciosConRegistro)
 
         if (!successItemPrecios) throw new Error('Error al guardar los precios de los items')
 
@@ -180,7 +185,7 @@ export const useRegistrosViewModel = () => {
         setItemPrecios(preciosConRegistro)
 
         return true
-    }, [state.totalSteam, state.totalGamerPay, state.totalCSFloat])
+    }, [state.totalSteam, state.totalGamerPay, state.totalCSFloat, registroRepository, itemPrecioRepository])
 
     const consultar = useCallback(async () => {
         setState((prev) => ({
@@ -241,4 +246,3 @@ export const useRegistrosViewModel = () => {
         historialRegistros
     }
 }
-

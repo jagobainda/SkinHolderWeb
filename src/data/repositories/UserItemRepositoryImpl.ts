@@ -1,11 +1,7 @@
 import type { UserItem } from '@domain/models/UserItem'
+import type { IUserItemRepository } from '@domain/usecases/GetUserItems'
 import { UserItemApi } from '@data/datasources/UserItemApi'
 
-export interface IUserItemRepository {
-    getUserItems(): Promise<UserItem[]>
-    addUserItem(userItem: UserItem): Promise<boolean>
-    updateUserItem(userItem: UserItem, cantidad: number): Promise<boolean>
-}
 
 export class UserItemRepositoryImpl implements IUserItemRepository {
     async getUserItems(): Promise<UserItem[]> {

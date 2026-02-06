@@ -1,102 +1,93 @@
 import type { SteamItemInfo } from '@domain/models/SteamItemInfo'
+import api from './ApiClient'
+import axios from 'axios'
 
-const MAX_RETRY_ATTEMPTS = 5
-const BASE_URL = 'https://steamcommunity.com/market/priceoverview/?country={0}&currency={1}&appid={2}&market_hash_name={3}'
-const RETRY_DELAY_MS = 500
+const POLLING_INTERVAL_MS = 500
+const MAX_POLLING_ATTEMPTS = 60 // 30 segundos máximo de espera
+
+interface QueueResponse {
+    taskId: string
+    status: string
+    message: string
+}
+
+interface TaskStatusResponse {
+    status: 'queued' | 'processing' | 'completed' | 'failed'
+    marketHashName: string
+    result: string | null
+    price: number | null
+    error: string | null
+    createdAt: string
+    completedAt: string | null
+}
 
 export const SteamApi = {
-    async getPriceOverview(marketHashName: string, country: string = 'ES', currency: number = 3, appId: number = 730): Promise<SteamItemInfo> {
-        // Solo esperar a que esté registrado, no verificar controller
-        if ('serviceWorker' in navigator) {
-            try {
-                await navigator.serviceWorker.ready
-                console.log('Service worker ready, controller:', navigator.serviceWorker.controller)
-            } catch (error) {
-                console.error('Service worker not available:', error)
+    async getPriceOverview(marketHashName: string): Promise<SteamItemInfo> {
+        try {
+            const queueResponse = await api.post<QueueResponse>('/External/GetSteamPrice', JSON.stringify(marketHashName), {
+                headers: { 'Content-Type': 'application/json' }
+            })
+
+            if (queueResponse.status !== 202) {
+                console.error('Error queuing Steam price request:', queueResponse.status)
+                return createErrorResponse(marketHashName)
             }
-        }
 
-        const targetUrl = BASE_URL
-            .replace('{0}', country)
-            .replace('{1}', currency.toString())
-            .replace('{2}', appId.toString())
-            .replace('{3}', marketHashName)
+            const { taskId } = queueResponse.data
 
-        const proxyUrl = `/steam-proxy/?url=${encodeURIComponent(targetUrl)}`
+            let attempts = 0
+            while (attempts < MAX_POLLING_ATTEMPTS) {
+                await new Promise(resolve => setTimeout(resolve, POLLING_INTERVAL_MS))
 
-        let attempts = 0
+                try {
+                    const statusResponse = await api.get<TaskStatusResponse>(`/External/GetSteamPriceStatus/${taskId}`)
+                    const taskStatus = statusResponse.data
 
-        while (attempts <= MAX_RETRY_ATTEMPTS) {
-            try {
-                const response = await fetch(proxyUrl, {
-                    method: 'GET',
-                    cache: 'no-cache'
-                })
-
-                if (response.status === 200) {
-                    const contentType = response.headers.get('content-type')
-
-                    if (contentType?.includes('text/html')) {
-                        console.error(`Service worker not intercepting (attempt ${attempts + 1})`)
-                        attempts++
-                        await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS))
-                        continue
+                    if (taskStatus.status === 'completed') {
+                        return {
+                            hashName: marketHashName,
+                            price: taskStatus.price ?? -1,
+                            isError: false,
+                            isWarning: false
+                        }
                     }
 
-                    const data = await response.text()
-
-                    if (data.trim().startsWith('<!DOCTYPE') || data.trim().startsWith('<html')) {
-                        console.error(`Received HTML content (attempt ${attempts + 1})`)
-                        attempts++
-                        await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS))
-                        continue
+                    if (taskStatus.status === 'failed') {
+                        console.error('Steam price task failed:', taskStatus.error)
+                        return createErrorResponse(marketHashName)
+                    }
+                } catch (pollingError) {
+                    if (axios.isAxiosError(pollingError) && pollingError.response?.status === 404) {
+                        console.error('Task not found or expired')
+                        return createErrorResponse(marketHashName)
                     }
 
-                    const price = extractPriceFromJson(data)
-
-                    return {
-                        hashName: marketHashName,
-                        price,
-                        isError: false,
-                        isWarning: attempts !== 0
-                    }
-                } else if (response.status === 500) {
-                    console.error(`Service worker returned 500 (attempt ${attempts + 1})`)
+                    console.error('Error polling task status:', pollingError)
+                    return createErrorResponse(marketHashName)
                 }
-            } catch (error) {
-                console.error(`Error making request to Steam API (attempt ${attempts + 1}):`, error)
+
+                attempts++
             }
 
-            attempts++
-            await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS))
-        }
+            console.error('Steam price polling timeout')
+            return createErrorResponse(marketHashName)
 
-        return {
-            hashName: marketHashName,
-            price: -1,
-            isError: true,
-            isWarning: false
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                console.error('Error making request to Steam API:', error.response?.status, error.message)
+            } else if (error instanceof Error) {
+                console.error('Unexpected error:', error.message)
+            } else {
+                console.error('Unknown error occurred')
+            }
+            return createErrorResponse(marketHashName)
         }
     }
 }
 
-const extractPriceFromJson = (input: string): number => {
-    if (!input) return -1
-
-    try {
-        const data = JSON.parse(input)
-
-        const priceString = data.lowest_price
-            ?.replace('-', '0')
-            ?.replace('€', '')
-            ?.replace(',', '.')
-            ?.trim() ?? ''
-
-        const price = parseFloat(priceString)
-
-        return isNaN(price) ? -1 : price
-    } catch (error) {
-        console.error('Error parsing JSON response:', error)
-        return -1
-    }
-}
+const createErrorResponse = (marketHashName: string): SteamItemInfo => ({
+    hashName: marketHashName,
+    price: -1,
+    isError: true,
+    isWarning: false
+})
