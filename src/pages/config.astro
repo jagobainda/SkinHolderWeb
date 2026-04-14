@@ -1,0 +1,8 @@
+---
+import AppLayout from '../layouts/AppLayout.astro'
+import { ConfigPage } from '../components/pages/ConfigPage'
+---
+
+<AppLayout title="SkinHolder - Config">
+    <ConfigPage client:only="react" />
+</AppLayout>

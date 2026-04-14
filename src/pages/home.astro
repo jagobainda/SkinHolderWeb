@@ -1,0 +1,8 @@
+---
+import AppLayout from '../layouts/AppLayout.astro'
+import { Dashboard } from '../components/dashboard/Dashboard'
+---
+
+<AppLayout title="SkinHolder - Home">
+    <Dashboard client:only="react" />
+</AppLayout>

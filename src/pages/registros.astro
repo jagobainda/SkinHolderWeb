@@ -1,0 +1,8 @@
+---
+import AppLayout from '../layouts/AppLayout.astro'
+import { RegistrosView } from '../components/registros/RegistrosView'
+---
+
+<AppLayout title="SkinHolder - Registros">
+    <RegistrosView client:only="react" />
+</AppLayout>

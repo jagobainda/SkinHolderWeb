@@ -1,0 +1,8 @@
+---
+import AppLayout from '../layouts/AppLayout.astro'
+import { LoginPage } from '../components/auth/LoginPage'
+---
+
+<AppLayout title="SkinHolder - Login">
+    <LoginPage client:only="react" />
+</AppLayout>

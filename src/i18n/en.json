@@ -1,0 +1,76 @@
+{
+    "login": {
+        "title": "SKINHOLDER",
+        "username": "Username",
+        "password": "Password",
+        "forgotPassword": "Forgot your password?",
+        "loginButton": "Sign in",
+        "noAccess": "Don't have access? Request it here",
+        "requestAccessTitle": "Request Access",
+        "requestAccessDescription": "This is a private tool.",
+        "requestAccessSubtitle": "Enter your email to request access. We will send you the credentials once your request is approved.",
+        "emailPlaceholder": "your@email.com",
+        "requestAccessButton": "Request Access",
+        "aboutLink": "About SkinHolder",
+        "madeBy": "Made by jagoba.dev"
+    },
+    "about": {
+        "title": "SKINHOLDER",
+        "subtitle": "Technical tracking of CS2 skin investments",
+        "whatIs": "What is SkinHolder?",
+        "whatIsDescription": "SkinHolder is an analysis and tracking tool for Counter-Strike 2 investments. It is specifically designed to manage skins, cases, stickers, and capsules held in inventory long-term. It provides detailed metrics, price histories, and profitability analysis for investors looking to maximize the value of their digital assets.",
+        "features": "Technical features",
+        "feature1": "Historical price analysis and market trends",
+        "feature2": "Automatic ROI and profitability calculation per item",
+        "feature3": "Real-time value change tracking",
+        "feature4": "Alerts for significant market changes",
+        "feature5": "Periodic synchronization with Steam API",
+        "architecture": "System architecture",
+        "architectureDesc": "Three-tier client-server architecture with multiple frontends:",
+        "backend": "Backend",
+        "backendDesc": "RESTful API in .NET 8 with Clean Architecture, implementing the Repository pattern, Entity Framework Core, AutoMapper for DTO mapping, JWT authentication, and Rate Limiting.",
+        "database": "Database",
+        "databaseDesc": "MySQL 8.0 with optimized indexes for high-performance queries on price histories.",
+        "clients": "Clients",
+        "webClient": "WEB CLIENT",
+        "androidClient": "ANDROID APP",
+        "desktopClient": "WINDOWS DESKTOP",
+        "dataFlow": "Data flow",
+        "steamApi": "Steam API",
+        "syncProcess": "Automatic synchronization process every 24h",
+        "backToLogin": "Back to Login",
+        "madeBy": "Made by jagoba.dev"
+    },
+    "main": {
+        "navbar": {
+            "home": "Home",
+            "records": "Records",
+            "items": "Items",
+            "config": "Settings",
+            "logout": "Logout"
+        },
+        "dashboard": {
+            "loading": "Loading statistics...",
+            "connection": {
+                "title": "SkinHolderDB",
+                "status": "Status",
+                "active": "Active",
+                "inactive": "Inactive",
+                "ping": "Ping",
+                "uptime": "Uptime"
+            },
+            "lastRegistry": {
+                "title": "Last Record"
+            },
+            "latency": {
+                "title": "Latency"
+            },
+            "variance": {
+                "title": "Variance",
+                "lastWeek": "Last week",
+                "lastMonth": "Last month",
+                "lastYear": "Last year"
+            }
+        }
+    }
+}

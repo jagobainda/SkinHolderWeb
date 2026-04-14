@@ -1,0 +1,81 @@
+import React, { useState } from "react";
+import { FiHome, FiFileText, FiPackage, FiUser, FiLogOut, FiMenu, FiX } from "react-icons/fi";
+import { useTranslation } from "@i18n/index";
+import { useAuth } from "@hooks/useAuth";
+
+export const TopNavbar: React.FC = () => {
+    const { t } = useTranslation();
+    const signOut = useAuth(s => s.signOut);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const navItems = [
+        { path: "/home", label: t.main.navbar.home, icon: FiHome },
+        { path: "/registros", label: t.main.navbar.records, icon: FiFileText },
+        { path: "/items", label: t.main.navbar.items, icon: FiPackage },
+        { path: "/config", label: t.main.navbar.config, icon: FiUser }
+    ];
+
+    const isActive = (path: string) => window.location.pathname === path;
+
+    const handleNavigate = (path: string) => {
+        window.location.href = path;
+    };
+
+    const handleLogout = () => {
+        setIsMenuOpen(false);
+        signOut();
+    };
+
+    return (
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-[#333333] border-b border-gray-700 shadow-lg">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center h-16 lg:justify-between">
+                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden text-gray-300 hover:text-primary transition-colors p-2" aria-label="Toggle menu">
+                        {isMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
+                    </button>
+
+                    <a href="/home" className="flex items-center gap-3 hover:opacity-80 transition-opacity absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0">
+                        <img src="/images/logo_login.png" alt="Logo" className="h-10 w-auto" />
+                        <span className="text-2xl font-bold text-primary">SkinHolder</span>
+                    </a>
+
+                    <div className="hidden lg:flex items-center gap-2">
+                        {navItems.map(({ path, label, icon: Icon }) => (
+                            <a key={path} href={path} className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 min-w-fit ${isActive(path) ? "bg-primary text-gray-900 font-semibold" : "text-gray-300 hover:bg-gray-700 hover:text-primary font-medium"}`}>
+                                <Icon className="w-5 h-5" />
+                                <span className="whitespace-nowrap">{label}</span>
+                            </a>
+                        ))}
+
+                        <div className="w-px h-8 bg-gray-700 mx-2" />
+
+                        <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors duration-200 hover:cursor-pointer">
+                            <FiLogOut className="w-5 h-5" />
+                            <span>{t.main.navbar.logout}</span>
+                        </button>
+                    </div>
+
+                    <div className="lg:hidden w-10" />
+                </div>
+
+                {isMenuOpen && (
+                    <div className="lg:hidden py-4 space-y-2 border-t border-gray-700">
+                        {navItems.map(({ path, label, icon: Icon }) => (
+                            <a key={path} href={path} onClick={() => setIsMenuOpen(false)} className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${isActive(path) ? "bg-primary text-gray-900 font-semibold" : "text-gray-300 hover:bg-gray-700 hover:text-primary"}`}>
+                                <Icon className="w-5 h-5" />
+                                <span>{label}</span>
+                            </a>
+                        ))}
+
+                        <div className="h-px bg-gray-700 my-2" />
+
+                        <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors duration-200">
+                            <FiLogOut className="w-5 h-5" />
+                            <span>{t.main.navbar.logout}</span>
+                        </button>
+                    </div>
+                )}
+            </div>
+        </nav>
+    );
+};

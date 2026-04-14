@@ -1,0 +1,76 @@
+{
+    "login": {
+        "title": "SKINHOLDER",
+        "username": "Usuario",
+        "password": "Contraseña",
+        "forgotPassword": "¿Olvidaste tu contraseña?",
+        "loginButton": "Iniciar sesión",
+        "noAccess": "¿No tienes acceso? Solicítalo aquí",
+        "requestAccessTitle": "Solicitar Acceso",
+        "requestAccessDescription": "Esta es una herramienta privada.",
+        "requestAccessSubtitle": "Introduce tu email para solicitar acceso. Te enviaremos las credenciales una vez que tu solicitud sea aprobada.",
+        "emailPlaceholder": "tu@email.com",
+        "requestAccessButton": "Solicitar Acceso",
+        "aboutLink": "About SkinHolder",
+        "madeBy": "Made by jagoba.dev"
+    },
+    "about": {
+        "title": "SKINHOLDER",
+        "subtitle": "Seguimiento técnico de inversiones en skins de CS2",
+        "whatIs": "¿Qué es SkinHolder?",
+        "whatIsDescription": "SkinHolder es una herramienta de análisis y seguimiento de inversiones en Counter-Strike 2. Está diseñada específicamente para gestionar skins, cajas, pegatinas y cápsulas que se mantienen en inventario a largo plazo. Ofrece métricas detalladas, históricos de precios y análisis de rentabilidad para inversores que buscan maximizar el valor de sus activos digitales.",
+        "features": "Características técnicas",
+        "feature1": "Análisis histórico de precios y tendencias de mercado",
+        "feature2": "Cálculo automático de ROI y rentabilidad por ítem",
+        "feature3": "Seguimiento de variaciones de valor en tiempo real",
+        "feature4": "Alertas de cambios significativos en el mercado",
+        "feature5": "Sincronización periódica con Steam API",
+        "architecture": "Arquitectura del sistema",
+        "architectureDesc": "Arquitectura cliente-servidor de tres capas con múltiples frontends:",
+        "backend": "Backend",
+        "backendDesc": "API RESTful en .NET 8 con Clean Architecture, implementando patrón Repository, Entity Framework Core, AutoMapper para mapeo de DTOs, autenticación JWT y Rate Limiting.",
+        "database": "Base de datos",
+        "databaseDesc": "MySQL 8.0 con optimización de índices para consultas de alto rendimiento en históricos de precios.",
+        "clients": "Clientes",
+        "webClient": "WEB CLIENT",
+        "androidClient": "ANDROID APP",
+        "desktopClient": "WINDOWS DESKTOP",
+        "dataFlow": "Flujo de datos",
+        "steamApi": "Steam API",
+        "syncProcess": "Proceso de sincronización automática cada 24h",
+        "backToLogin": "Volver al Login",
+        "madeBy": "Made by jagoba.dev"
+    },
+    "main": {
+        "navbar": {
+            "home": "Inicio",
+            "records": "Registros",
+            "items": "Items",
+            "config": "Configuración",
+            "logout": "Cerrar sesión"
+        },
+        "dashboard": {
+            "loading": "Cargando estadísticas...",
+            "connection": {
+                "title": "SkinHolderDB",
+                "status": "Estado",
+                "active": "Activo",
+                "inactive": "Inactivo",
+                "ping": "Ping",
+                "uptime": "Uptime"
+            },
+            "lastRegistry": {
+                "title": "Último Registro"
+            },
+            "latency": {
+                "title": "Latencia"
+            },
+            "variance": {
+                "title": "Varianza",
+                "lastWeek": "Última semana",
+                "lastMonth": "Último mes",
+                "lastYear": "Último año"
+            }
+        }
+    }
+}

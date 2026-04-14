@@ -1,0 +1,16 @@
+{
+    "extends": "astro/tsconfigs/strict",
+    "include": [".astro/types.d.ts", "**/*"],
+    "exclude": ["dist"],
+    "compilerOptions": {
+        "ignoreDeprecations": "6.0",
+        "baseUrl": ".",
+        "paths": {
+            "@components/*": ["src/components/*"],
+            "@lib/*": ["src/lib/*"],
+            "@hooks/*": ["src/hooks/*"],
+            "@types/*": ["src/types/*"],
+            "@i18n/*": ["src/i18n/*"]
+        }
+    }
+}
