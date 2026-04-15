@@ -1,5 +1,5 @@
 import { api, ApiError } from "./api";
-import type { SteamItemInfo } from "@types/index";
+import type { SteamItemInfo } from "@app-types/index";
 
 const POLLING_INTERVAL_MS = 500;
 const MAX_POLLING_ATTEMPTS = 60;

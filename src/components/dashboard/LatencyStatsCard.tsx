@@ -1,15 +1,15 @@
 import React from "react";
-import { FiZap } from "react-icons/fi";
+import { IconZap } from "@components/shared/Icons";
 import { StatsCard } from "./StatsCard";
-import { useTranslation } from "@i18n/index";
-import type { LatencyStats } from "@types/index";
+import { getTranslations } from "@i18n/index";
+import type { LatencyStats } from "@app-types/index";
 
 interface Props {
     stats: LatencyStats | null;
 }
 
 export const LatencyStatsCard: React.FC<Props> = ({ stats }) => {
-    const { t } = useTranslation();
+    const t = getTranslations();
     if (!stats) return null;
 
     const getLatencyColor = (latency: number) => {
@@ -19,7 +19,7 @@ export const LatencyStatsCard: React.FC<Props> = ({ stats }) => {
     };
 
     return (
-        <StatsCard title={t.main.dashboard.latency.title} icon={FiZap} iconColor="text-yellow-400">
+        <StatsCard title={t.main.dashboard.latency.title} icon={IconZap} iconColor="text-yellow-400">
             <div className="flex items-center justify-between">
                 <span className="text-gray-400">Steam</span>
                 <span className={`font-semibold ${getLatencyColor(stats.steam)}`}>{stats.steam}ms</span>

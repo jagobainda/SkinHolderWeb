@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useLogin } from "@hooks/useLogin";
 import { useToast } from "@hooks/useToast";
-import { validate } from "@lib/auth";
+import { validate, getCookie } from "@lib/auth";
 import { LoginForm } from "./LoginForm";
 import { ToastContainer } from "@components/shared/ToastContainer";
 
@@ -11,7 +11,7 @@ export const LoginPage: React.FC = () => {
 
     useEffect(() => {
         const checkToken = async () => {
-            const token = localStorage.getItem("token");
+            const token = getCookie("sh_token");
 
             if (token) {
                 const isValid = await validate();
@@ -19,14 +19,14 @@ export const LoginPage: React.FC = () => {
                 if (isValid) {
                     window.location.href = "/home";
                 } else {
-                    localStorage.removeItem("token");
+                    document.cookie = "sh_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax";
                 }
             }
         };
 
         checkToken().catch(error => {
             console.error("Error validating token:", error);
-            localStorage.removeItem("token");
+            document.cookie = "sh_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax";
         });
     }, []);
 
@@ -44,7 +44,7 @@ export const LoginPage: React.FC = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#4A4A4A] to-[#2C2C2C]">
+        <div className="flex items-center justify-center min-h-screen">
             <LoginForm onSubmit={handleSubmit} onForgotPassword={handleForgotPassword} onRequestAccess={handleRequestAccess} loading={isLoading} requestAccessLoading={requestAccessLoading} />
             <ToastContainer toasts={toasts} onRemove={removeToast} />
         </div>

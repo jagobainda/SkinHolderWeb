@@ -1,5 +1,5 @@
 import { api } from "./api";
-import type { Item } from "@types/index";
+import type { Item } from "@app-types/index";
 
 export async function getItems(): Promise<Item[]> {
     try {

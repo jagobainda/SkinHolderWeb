@@ -1,13 +1,21 @@
 @import "tailwindcss";
 
 @theme {
+    /* Colores base */
     --color-primary: #b8d600;
     --color-primary-hover: #a0b800;
     --color-primary-active: #8a9f00;
+
+    /* Fondos: capas con soporte glassmorphism */
+    --color-surface: #1e1e1e;
+    --color-surface-card: #2a2a2a;
+    --color-surface-elevated: #333333;
+    --color-border: rgba(255, 255, 255, 0.08);
+
+    /* Plataformas */
     --color-gamerpay: #019eff;
     --color-steam: #59bf40;
-    --color-csfloat: #4a4a4a;
-    --color-csfloat-secondary: #ffffff;
+    --color-csfloat: #e8e8e8;
 }
 
 @keyframes slide-in-bottom {
@@ -21,10 +29,48 @@
     }
 }
 
+@keyframes fade-slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .animate-slide-in-bottom {
     animation: slide-in-bottom 0.15s ease-out;
 }
 
+.animate-fade-slide-up {
+    animation: fade-slide-up 0.4s ease-out;
+}
+
 .w-88 {
     width: calc(var(--spacing) * 88);
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 0.5rem;
 }

@@ -1,13 +1,27 @@
 import { api, ApiError } from "./api";
-import type { LoginRequest, AuthResult } from "@types/index";
+import type { LoginRequest, AuthResult } from "@app-types/index";
+
+function setCookie(name: string, value: string, days = 7) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+}
+
+function deleteCookie(name: string) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax`;
+}
+
+export function getCookie(name: string): string | null {
+    const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+    return match ? decodeURIComponent(match[1]) : null;
+}
 
 export async function login(dto: LoginRequest): Promise<AuthResult | null> {
     try {
         const { data } = await api.post<AuthResult>("/Auth/login", dto);
         if (data) {
-            localStorage.setItem("token", data.token);
-            localStorage.setItem("username", data.username);
-            localStorage.setItem("userId", data.userId);
+            setCookie("sh_token", data.token);
+            setCookie("sh_username", data.username);
+            setCookie("sh_userId", data.userId);
         }
         return data;
     } catch (error) {
@@ -36,8 +50,8 @@ export async function requestAccess(email: string): Promise<number> {
 }
 
 export function logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("app_start_time");
+    deleteCookie("sh_token");
+    deleteCookie("sh_username");
+    deleteCookie("sh_userId");
+    deleteCookie("app_start_time");
 }

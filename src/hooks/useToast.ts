@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import type { ToastType, Toast } from "@types/index";
+import type { ToastType, Toast } from "@app-types/index";
 
 export const useToast = () => {
     const [toasts, setToasts] = useState<Toast[]>([]);

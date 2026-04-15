@@ -1,5 +1,5 @@
 import { api } from "./api";
-import type { Registro, VarianceStats } from "@types/index";
+import type { Registro, VarianceStats } from "@app-types/index";
 
 export async function getLastRegistro(): Promise<Registro | null> {
     try {

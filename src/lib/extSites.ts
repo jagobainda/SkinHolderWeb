@@ -1,5 +1,5 @@
 import { api } from "./api";
-import type { GamerPayItemInfo } from "@types/index";
+import type { GamerPayItemInfo } from "@app-types/index";
 
 interface GamerPayApiResponse {
     item: string;

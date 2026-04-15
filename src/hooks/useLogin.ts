@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { login as authLogin, requestAccess as authRequestAccess } from "@lib/auth";
 import { ApiError } from "@lib/api";
-import type { LoginRequest } from "@types/index";
+import type { LoginRequest } from "@app-types/index";
 
 const getErrorMessageLogin = (error: unknown): string => {
     if (error instanceof ApiError) {

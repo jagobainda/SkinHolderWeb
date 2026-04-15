@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { FiHome, FiFileText, FiPackage, FiUser, FiLogOut, FiMenu, FiX } from "react-icons/fi";
-import { useTranslation } from "@i18n/index";
-import { useAuth } from "@hooks/useAuth";
+import { getTranslations } from "@i18n/index";
+import { signOut } from "@hooks/useAuth";
 
 export const TopNavbar: React.FC = () => {
-    const { t } = useTranslation();
-    const signOut = useAuth(s => s.signOut);
+    const t = getTranslations();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const navItems = [

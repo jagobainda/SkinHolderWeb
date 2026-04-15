@@ -1,5 +1,5 @@
 import { api } from "./api";
-import type { ItemPrecio } from "@types/index";
+import type { ItemPrecio } from "@app-types/index";
 
 export async function getItemPrecios(registroId: number): Promise<ItemPrecio[]> {
     try {

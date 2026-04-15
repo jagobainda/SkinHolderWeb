@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useTranslation } from "@i18n/index";
+import { getTranslations } from "@i18n/index";
 
 type Props = {
     onSubmit: (username: string, password: string) => void;
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onRequestAccess, loading, requestAccessLoading = false }) => {
-    const { t } = useTranslation();
+    const t = getTranslations();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showRegisterPanel, setShowRegisterPanel] = useState(false);
@@ -27,31 +27,31 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
     };
 
     return (
-        <div className="flex flex-col lg:flex-row gap-8 items-center py-8 lg:py-0">
+        <div className="flex flex-col lg:flex-row gap-8 items-center py-8 lg:py-0 animate-fade-slide-up">
             <div className="flex flex-col items-center gap-4">
                 <div className="group relative">
-                    <div className="absolute -inset-0.5 bg-primary rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+                    <div className="absolute -inset-0.5 bg-primary rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
 
-                    <div className="relative bg-[#333333] rounded-2xl p-8 w-88">
+                    <div className="relative bg-surface-card rounded-xl p-8 w-88 border border-white/8">
                         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                             <div className="relative w-full mb-6 flex justify-center">
                                 <div className="relative">
                                     <img src="/images/logo_login.png" alt="Logo" className="h-52 w-auto" />
                                     <div className="absolute inset-0 flex items-center justify-center">
-                                        <h1 className="text-4xl font-bold text-primary drop-shadow-lg">{t.login.title}</h1>
+                                        <h1 className="text-5xl font-bold text-primary drop-shadow-lg">{t.login.title}</h1>
                                     </div>
                                 </div>
                             </div>
 
-                            <input placeholder={t.login.username} value={username} onChange={e => setUsername(e.target.value)} className="px-4 py-2 border text-gray-200 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-transparent" />
+                            <input placeholder={t.login.username} value={username} onChange={e => setUsername(e.target.value)} className="px-2 py-2 border-b-2 text-gray-200 border-gray-600 focus:outline-none focus:border-primary bg-transparent transition-colors" />
 
-                            <input type="password" placeholder={t.login.password} value={password} onChange={e => setPassword(e.target.value)} className="px-4 py-2 border text-gray-200 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-transparent" />
+                            <input type="password" placeholder={t.login.password} value={password} onChange={e => setPassword(e.target.value)} className="px-2 py-2 border-b-2 text-gray-200 border-gray-600 focus:outline-none focus:border-primary bg-transparent transition-colors" />
 
                             <button type="button" onClick={onForgotPassword} className="text-primary text-sm hover:underline hover:cursor-pointer self-center">
                                 {t.login.forgotPassword}
                             </button>
 
-                            <button type="submit" disabled={loading} className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed hover:cursor-pointer transition-colors flex items-center justify-center min-h-[42px]">
+                            <button type="submit" disabled={loading} className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed hover:cursor-pointer transition-colors flex items-center justify-center min-h-[42px] font-semibold">
                                 {loading ? <div className="w-5 h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin"></div> : t.login.loginButton}
                             </button>
 
@@ -73,10 +73,10 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
             </div>
 
             {showRegisterPanel && (
-                <div className="group relative">
-                    <div className="absolute -inset-0.5 bg-primary rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+                <div className="group relative animate-fade-slide-up">
+                    <div className="absolute -inset-0.5 bg-primary rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
 
-                    <div className="relative bg-[#333333] rounded-2xl p-8 w-88">
+                    <div className="relative bg-surface-card rounded-xl p-8 w-88 border border-white/8">
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-2xl font-bold text-primary">{t.login.requestAccessTitle}</h2>
                             <button onClick={() => setShowRegisterPanel(false)} className="text-gray-400 hover:text-gray-200 hover:cursor-pointer text-2xl">
@@ -90,9 +90,9 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
                         </div>
 
                         <form onSubmit={handleRequestAccess} className="flex flex-col gap-4">
-                            <input type="email" placeholder={t.login.emailPlaceholder} value={email} onChange={e => setEmail(e.target.value)} required className="px-4 py-2 border text-gray-200 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-transparent" />
+                            <input type="email" placeholder={t.login.emailPlaceholder} value={email} onChange={e => setEmail(e.target.value)} required className="px-2 py-2 border-b-2 text-gray-200 border-gray-600 focus:outline-none focus:border-primary bg-transparent transition-colors" />
 
-                            <button type="submit" disabled={requestAccessLoading} className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed hover:cursor-pointer transition-colors flex items-center justify-center min-h-[42px]">
+                            <button type="submit" disabled={requestAccessLoading} className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed hover:cursor-pointer transition-colors flex items-center justify-center min-h-[42px] font-semibold">
                                 {requestAccessLoading ? <div className="w-5 h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin"></div> : t.login.requestAccessButton}
                             </button>
                         </form>

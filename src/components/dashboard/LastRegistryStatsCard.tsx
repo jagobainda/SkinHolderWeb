@@ -1,23 +1,22 @@
 import React from "react";
-import { FiFileText } from "react-icons/fi";
-import { SiSteam } from "react-icons/si";
+import { IconFileText, IconSteam } from "@components/shared/Icons";
 import { StatsCard } from "./StatsCard";
-import { useTranslation } from "@i18n/index";
-import type { LastRegistryStats } from "@types/index";
+import { getTranslations } from "@i18n/index";
+import type { LastRegistryStats } from "@app-types/index";
 
 interface Props {
     stats: LastRegistryStats | null;
 }
 
 export const LastRegistryStatsCard: React.FC<Props> = ({ stats }) => {
-    const { t } = useTranslation();
+    const t = getTranslations();
     if (!stats) return null;
 
     return (
-        <StatsCard title={t.main.dashboard.lastRegistry.title} icon={FiFileText} iconColor="text-green-400">
+        <StatsCard title={t.main.dashboard.lastRegistry.title} icon={IconFileText} iconColor="text-green-400">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <SiSteam className="text-blue-400" />
+                    <IconSteam className="text-blue-400 w-4 h-4" />
                     <span className="text-gray-400">Steam</span>
                 </div>
                 <span className="text-white font-semibold">{stats.totalSteam}</span>

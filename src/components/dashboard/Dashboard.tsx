@@ -1,18 +1,15 @@
-import React from "react";
-import { ProtectedPage } from "@components/shared/ProtectedPage";
-import { QueryProvider } from "@components/providers/QueryProvider";
-import { TopNavbar } from "@components/shared/TopNavbar";
+import React, { useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { DashboardContent } from "./DashboardContent";
 
 export const Dashboard: React.FC = () => {
+    const [queryClient] = useState(() => new QueryClient());
+
     return (
-        <ProtectedPage>
-            <QueryProvider>
-                <div className="min-h-screen bg-gradient-to-br from-[#4A4A4A] to-[#2C2C2C] pt-16">
-                    <TopNavbar />
-                    <DashboardContent />
-                </div>
-            </QueryProvider>
-        </ProtectedPage>
+        <QueryClientProvider client={queryClient}>
+            <div className="min-h-screen pt-16">
+                <DashboardContent />
+            </div>
+        </QueryClientProvider>
     );
 };

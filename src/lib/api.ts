@@ -1,6 +1,12 @@
 const BASE_URL = import.meta.env.PROD ? "https://shapi.jagoba.dev" : "/api";
 const TIMEOUT_MS = 10000;
 
+function getTokenFromCookie(): string | null {
+    if (typeof document === "undefined") return null;
+    const match = document.cookie.match(/(?:^|; )sh_token=([^;]*)/);
+    return match ? decodeURIComponent(match[1]) : null;
+}
+
 async function request<T>(method: string, path: string, body?: unknown): Promise<{ data: T; status: number }> {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
@@ -9,7 +15,7 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
         "Content-Type": "application/json"
     };
 
-    const token = localStorage.getItem("token");
+    const token = getTokenFromCookie();
     if (token) headers["Authorization"] = `Bearer ${token}`;
 
     try {
@@ -21,7 +27,7 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
         });
 
         if (res.status === 401) {
-            localStorage.removeItem("token");
+            document.cookie = "sh_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax";
             window.location.href = "/";
             throw new ApiError("Unauthorized", 401);
         }

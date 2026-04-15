@@ -4,18 +4,22 @@ interface Props {
 }
 
 const { title } = Astro.props
+const acceptLang = Astro.request.headers.get('accept-language') ?? ''
+const lang = acceptLang.startsWith('es') ? 'es' : 'en'
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/x-icon" href="/images/logo.ico" />
         <title>{title}</title>
     </head>
-    <body class="bg-gradient-to-br from-[#4A4A4A] to-[#2C2C2C] min-h-screen">
-        <slot />
+    <body class="bg-surface min-h-screen">
+        <div>
+            <slot />
+        </div>
     </body>
 </html>
 

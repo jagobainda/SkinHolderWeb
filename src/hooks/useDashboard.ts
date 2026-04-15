@@ -1,13 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import { getLastRegistro, getVarianceStats } from "@lib/registros";
 import { measureDatabaseLatency, measureAllLatencies } from "@lib/latency";
-import type { DashboardStats } from "@types/index";
+import type { DashboardStats } from "@app-types/index";
+
+function getCookieValue(name: string): string | null {
+    if (typeof document === "undefined") return null;
+    const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+    return match ? decodeURIComponent(match[1]) : null;
+}
+
+function setCookieValue(name: string, value: string) {
+    const expires = new Date(Date.now() + 7 * 864e5).toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+}
 
 function calculateUptime(): number {
-    const startTime = localStorage.getItem("app_start_time");
+    const startTime = getCookieValue("app_start_time");
     if (!startTime) {
         const now = Date.now();
-        localStorage.setItem("app_start_time", now.toString());
+        setCookieValue("app_start_time", now.toString());
         return 0;
     }
     const elapsed = Date.now() - parseInt(startTime);

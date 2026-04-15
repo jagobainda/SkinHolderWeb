@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { FiTrendingUp, FiTrendingDown } from "react-icons/fi";
-import { SiSteam } from "react-icons/si";
+import { IconTrendingUp, IconTrendingDown, IconSteam } from "@components/shared/Icons";
 import { StatsCard } from "./StatsCard";
-import { useTranslation } from "@i18n/index";
-import type { VarianceStats } from "@types/index";
+import { getTranslations } from "@i18n/index";
+import type { VarianceStats } from "@app-types/index";
 
 type Platform = "steam" | "gamerpay" | "csfloat";
 
@@ -13,20 +12,20 @@ interface Props {
 
 export const VarianceStatsCard: React.FC<Props> = ({ stats }) => {
     const [selectedPlatform, setSelectedPlatform] = useState<Platform>("steam");
-    const { t } = useTranslation();
+    const t = getTranslations();
 
     if (!stats) return null;
 
     const formatVariance = (value: number) => {
         if (value === -101) {
-            return { formatted: "N/A", color: "text-gray-500", icon: FiTrendingUp };
+            return { formatted: "N/A", color: "text-gray-500", icon: IconTrendingUp };
         }
 
         const isPositive = value >= 0;
         return {
             formatted: `${isPositive ? "+" : ""}${value.toFixed(2)}%`,
             color: isPositive ? "text-green-400" : "text-red-400",
-            icon: isPositive ? FiTrendingUp : FiTrendingDown
+            icon: isPositive ? IconTrendingUp : IconTrendingDown
         };
     };
 
@@ -58,7 +57,7 @@ export const VarianceStatsCard: React.FC<Props> = ({ stats }) => {
     const titleActions = (
         <div className="flex gap-2">
             <button onClick={() => setSelectedPlatform("steam")} className={`p-2 rounded-lg transition-colors ${selectedPlatform === "steam" ? "bg-blue-500/20 text-blue-400" : "bg-gray-800 text-gray-400 hover:bg-gray-700"}`}>
-                <SiSteam className="w-4 h-4" />
+                <IconSteam className="w-4 h-4" />
             </button>
 
             <button onClick={() => setSelectedPlatform("gamerpay")} className={`p-2 rounded-lg transition-colors ${selectedPlatform === "gamerpay" ? "bg-purple-500/20 text-purple-400" : "bg-gray-800 text-gray-400 hover:bg-gray-700"}`}>
@@ -72,11 +71,11 @@ export const VarianceStatsCard: React.FC<Props> = ({ stats }) => {
     );
 
     return (
-        <StatsCard title={t.main.dashboard.variance.title} icon={FiTrendingUp} iconColor="text-purple-400" actions={titleActions}>
+        <StatsCard title={t.main.dashboard.variance.title} icon={IconTrendingUp} iconColor="text-purple-400" actions={titleActions}>
             <div className="flex items-center justify-between">
                 <span className="text-gray-400">{t.main.dashboard.variance.lastWeek}</span>
                 <div className="flex items-center gap-2">
-                    <week.icon className={week.color} />
+                    <week.icon className={`w-4 h-4 ${week.color}`} />
                     <span className={`font-semibold ${week.color}`}>{week.formatted}</span>
                 </div>
             </div>
@@ -84,7 +83,7 @@ export const VarianceStatsCard: React.FC<Props> = ({ stats }) => {
             <div className="flex items-center justify-between">
                 <span className="text-gray-400">{t.main.dashboard.variance.lastMonth}</span>
                 <div className="flex items-center gap-2">
-                    <month.icon className={month.color} />
+                    <month.icon className={`w-4 h-4 ${month.color}`} />
                     <span className={`font-semibold ${month.color}`}>{month.formatted}</span>
                 </div>
             </div>
@@ -92,7 +91,7 @@ export const VarianceStatsCard: React.FC<Props> = ({ stats }) => {
             <div className="flex items-center justify-between">
                 <span className="text-gray-400">{t.main.dashboard.variance.lastYear}</span>
                 <div className="flex items-center gap-2">
-                    <year.icon className={year.color} />
+                    <year.icon className={`w-4 h-4 ${year.color}`} />
                     <span className={`font-semibold ${year.color}`}>{year.formatted}</span>
                 </div>
             </div>

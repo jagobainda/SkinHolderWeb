@@ -4,7 +4,7 @@ import { getSteamPrice } from "@lib/steam";
 import { getGamerPayItems } from "@lib/extSites";
 import { createRegistro } from "@lib/registros";
 import { createItemPrecios } from "@lib/itemPrecios";
-import type { Registro, UserItem, ItemPrecio, GamerPayItemInfo, RegistrosState } from "@types/index";
+import type { Registro, UserItem, ItemPrecio, GamerPayItemInfo, RegistrosState } from "@app-types/index";
 
 const initialState: RegistrosState = {
     totalSteam: 0,
@@ -111,7 +111,8 @@ export const useRegistros = () => {
     );
 
     const guardarRegistro = useCallback(async (precios: ItemPrecio[], totalSteam: number, totalGamerPay: number, totalCSFloat: number): Promise<boolean> => {
-        const userId = localStorage.getItem("userId");
+        const userIdMatch = document.cookie.match(/(?:^|; )sh_userId=([^;]*)/);
+        const userId = userIdMatch ? decodeURIComponent(userIdMatch[1]) : null;
         if (!userId) throw new Error("No se encontró el ID del usuario");
 
         const registro: Registro = {

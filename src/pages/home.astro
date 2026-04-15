@@ -1,8 +1,10 @@
 ---
 import AppLayout from '../layouts/AppLayout.astro'
+import TopNavbar from '../components/shared/TopNavbar.astro'
 import { Dashboard } from '../components/dashboard/Dashboard'
 ---
 
 <AppLayout title="SkinHolder - Home">
+    <TopNavbar />
     <Dashboard client:only="react" />
 </AppLayout>

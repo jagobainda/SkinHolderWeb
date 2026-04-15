@@ -1,8 +1,13 @@
 ---
 import AppLayout from '../layouts/AppLayout.astro'
-import { ConfigPage } from '../components/pages/ConfigPage'
+import TopNavbar from '../components/shared/TopNavbar.astro'
 ---
 
 <AppLayout title="SkinHolder - Config">
-    <ConfigPage client:only="react" />
+    <TopNavbar />
+    <div class="min-h-screen pt-16">
+        <main class="flex items-center justify-center min-h-[calc(100vh-4rem)] px-4 py-8">
+            <span class="text-white text-xl">Configuración — coming soon</span>
+        </main>
+    </div>
 </AppLayout>

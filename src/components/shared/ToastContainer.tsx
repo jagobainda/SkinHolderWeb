@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert } from "./Alert";
-import type { Toast } from "@types/index";
+import type { Toast } from "@app-types/index";
 
 interface ToastContainerProps {
     toasts: Toast[];
