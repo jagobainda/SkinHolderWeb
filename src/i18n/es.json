@@ -72,5 +72,50 @@
                 "lastYear": "Último año"
             }
         }
+    },
+    "items": {
+        "searchPlaceholder": "Buscar items...",
+        "myItems": "MIS ITEMS",
+        "newItem": "NUEVO ITEM",
+        "quantity": "Cantidad",
+        "addItem": "AÑADIR ITEM",
+        "noUserItems": "No tienes items aún",
+        "noItemsFound": "No se encontraron items",
+        "noItemsAvailable": "No hay items disponibles en el catálogo",
+        "selectItem": "Selecciona un item del catálogo",
+        "alreadyOwned": "Ya tienes este item en tu inventario",
+        "invalidQuantity": "Introduce una cantidad válida (mayor que 0)",
+        "addError": "Error al añadir el item",
+        "itemAdded": "Item añadido correctamente",
+        "info": "Información",
+        "success": "Éxito"
+    },
+    "registros": {
+        "loadingItems": "Cargando items...",
+        "consult": "CONSULTAR",
+        "history": "HISTORIAL DE REGISTROS",
+        "total": "TOTAL",
+        "details": {
+            "title": "Detalles del Registro",
+            "consultDate": "FECHA DE CONSULTA",
+            "totalSteam": "TOTAL STEAM",
+            "totalGamerPay": "TOTAL GAMERPAY",
+            "totalCSFloat": "TOTAL CSFLOAT",
+            "article": "ARTÍCULO",
+            "quantity": "CANTIDAD",
+            "noItems": "No hay items en este registro",
+            "unknown": "Desconocido",
+            "totalTooltip": "Total"
+        },
+        "historial": {
+            "title": "Historial de Registros",
+            "date": "FECHA",
+            "actions": "ACCIONES",
+            "noRegistros": "No hay registros disponibles",
+            "deleting": "Eliminando...",
+            "deleteConfirm": "¿Estás seguro de que deseas eliminar este registro? Esta acción no se puede deshacer.",
+            "viewDetails": "Ver detalles",
+            "deleteRegistro": "Eliminar registro"
+        }
     }
 }

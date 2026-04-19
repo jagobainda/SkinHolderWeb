@@ -1,10 +1,13 @@
 ---
 import AppLayout from '../layouts/AppLayout.astro'
 import TopNavbar from '../components/shared/TopNavbar.astro'
-import { RegistrosView } from '../components/registros/RegistrosView'
+import RegistrosGrid from '../components/registros/RegistrosGrid.astro'
+import { RegistrosInteractive } from '../components/registros/RegistrosInteractive'
 ---
 
 <AppLayout title="SkinHolder - Registros">
     <TopNavbar />
-    <RegistrosView client:only="react" />
+    <RegistrosGrid>
+        <RegistrosInteractive client:load />
+    </RegistrosGrid>
 </AppLayout>

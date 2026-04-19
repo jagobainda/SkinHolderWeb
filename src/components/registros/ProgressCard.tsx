@@ -1,4 +1,5 @@
 import React from "react";
+import { getTranslations } from "@i18n/index";
 
 interface ProgressCardProps {
     platform: "steam" | "gamerpay" | "csfloat";
@@ -28,6 +29,7 @@ const platformConfig = {
 };
 
 export const ProgressCard: React.FC<ProgressCardProps> = ({ platform, progress, total, totalPrice, onShowDetails, isEnabled }) => {
+    const t = getTranslations();
     const config = platformConfig[platform];
     const percentage = total > 0 ? (progress / total) * 100 : 100;
 
@@ -42,7 +44,7 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({ platform, progress, 
                             {progress} / {total}
                         </div>
                         <div className="text-white text-xl mb-4">
-                            TOTAL {config.label}: <span className="text-primary">{totalPrice.toFixed(2)} €</span>
+                            {t.registros.total} {config.label}: <span className="text-primary">{totalPrice.toFixed(2)} €</span>
                         </div>
                     </div>
                     <button onClick={onShowDetails} disabled={!isEnabled} className={`p-2.5 rounded-lg transition-all duration-200 border ${isEnabled ? "bg-surface text-primary border-transparent hover:bg-surface-elevated cursor-pointer shadow-[0_4px_10px_rgba(0,0,0,0.2)]" : "bg-surface-card text-[#666666] border-[#444444] cursor-not-allowed"}`}>

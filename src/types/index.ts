@@ -128,3 +128,15 @@ export interface RegistrosState {
     isLoading: boolean;
     error: string | null;
 }
+
+// Registro Details
+export interface ItemDetalle {
+    itemName: string;
+    cantidad: number;
+    precioSteam: number;
+    precioGamerPay: number;
+    precioCSFloat: number;
+    totalSteam: number;
+    totalGamerPay: number;
+    totalCSFloat: number;
+}

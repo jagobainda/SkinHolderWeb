@@ -1,6 +1,6 @@
 import { defineMiddleware } from "astro:middleware";
 
-const PROTECTED_ROUTES = ["/home", "/registros", "/items", "/config"];
+const PROTECTED_ROUTES = ["/home", "/registros", "/items", "/config", "/historial"];
 const API_BASE = import.meta.env.PROD ? "https://shapi.jagoba.dev" : "https://shapi.jagoba.dev";
 
 export const onRequest = defineMiddleware(async (context, next) => {

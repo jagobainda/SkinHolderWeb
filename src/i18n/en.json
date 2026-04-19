@@ -72,5 +72,50 @@
                 "lastYear": "Last year"
             }
         }
+    },
+    "items": {
+        "searchPlaceholder": "Search items...",
+        "myItems": "MY ITEMS",
+        "newItem": "NEW ITEM",
+        "quantity": "Quantity",
+        "addItem": "ADD ITEM",
+        "noUserItems": "You don't have any items yet",
+        "noItemsFound": "No items found",
+        "noItemsAvailable": "No items available in catalog",
+        "selectItem": "Select an item from the catalog",
+        "alreadyOwned": "You already have this item in your inventory",
+        "invalidQuantity": "Enter a valid quantity (greater than 0)",
+        "addError": "Error adding the item",
+        "itemAdded": "Item added successfully",
+        "info": "Info",
+        "success": "Success"
+    },
+    "registros": {
+        "loadingItems": "Loading items...",
+        "consult": "QUERY",
+        "history": "RECORD HISTORY",
+        "total": "TOTAL",
+        "details": {
+            "title": "Record Details",
+            "consultDate": "QUERY DATE",
+            "totalSteam": "TOTAL STEAM",
+            "totalGamerPay": "TOTAL GAMERPAY",
+            "totalCSFloat": "TOTAL CSFLOAT",
+            "article": "ITEM",
+            "quantity": "QUANTITY",
+            "noItems": "No items in this record",
+            "unknown": "Unknown",
+            "totalTooltip": "Total"
+        },
+        "historial": {
+            "title": "Record History",
+            "date": "DATE",
+            "actions": "ACTIONS",
+            "noRegistros": "No records available",
+            "deleting": "Deleting...",
+            "deleteConfirm": "Are you sure you want to delete this record? This action cannot be undone.",
+            "viewDetails": "View details",
+            "deleteRegistro": "Delete record"
+        }
     }
 }

@@ -1,0 +1,14 @@
+---
+import AppLayout from '../layouts/AppLayout.astro'
+import TopNavbar from '../components/shared/TopNavbar.astro'
+import { HistorialView } from '../components/registros/HistorialView'
+---
+
+<AppLayout title="SkinHolder - Historial">
+    <TopNavbar />
+    <div class="min-h-screen pt-16">
+        <main class="flex items-start justify-center min-h-[calc(100vh-4rem)] px-4 py-8">
+            <HistorialView client:load />
+        </main>
+    </div>
+</AppLayout>

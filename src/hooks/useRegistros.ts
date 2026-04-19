@@ -188,11 +188,12 @@ export const useRegistros = () => {
     }, [currentRegistro, itemPrecios]);
 
     const historialRegistros = useCallback(() => {
-        console.log("Mostrar historial de registros");
+        window.location.href = "/historial";
     }, []);
 
     return {
         state,
+        currentRegistro,
         consultar,
         mostrarDetalles,
         historialRegistros

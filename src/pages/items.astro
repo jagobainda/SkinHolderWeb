@@ -1,13 +1,10 @@
 ---
 import AppLayout from '../layouts/AppLayout.astro'
 import TopNavbar from '../components/shared/TopNavbar.astro'
+import { UserItemsView } from '../components/items/UserItemsView'
 ---
 
 <AppLayout title="SkinHolder - Items">
     <TopNavbar />
-    <div class="min-h-screen pt-16">
-        <main class="flex items-center justify-center min-h-[calc(100vh-4rem)] px-4 py-8">
-            <span class="text-white text-xl">Items — coming soon</span>
-        </main>
-    </div>
+    <UserItemsView client:load />
 </AppLayout>
