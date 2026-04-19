@@ -2,14 +2,15 @@ import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { getRegistros, deleteRegistro } from "@lib/registros";
 import { deleteItemPrecios } from "@lib/itemPrecios";
 import { getTranslations } from "@i18n/index";
+import type { Lang } from "@i18n/index";
 import { RegistroDetailsModal } from "./RegistroDetailsModal";
 import type { Registro } from "@app-types/index";
 
 type SortColumn = "fechahora" | "totalsteam" | "totalgamerpay" | "totalcsfloat";
 type SortDirection = "asc" | "desc";
 
-export const HistorialView: React.FC = () => {
-    const t = getTranslations();
+export const HistorialView: React.FC<{ lang: Lang }> = ({ lang }) => {
+    const t = getTranslations(lang);
     const [registros, setRegistros] = useState<Registro[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -202,7 +203,7 @@ export const HistorialView: React.FC = () => {
             </div>
 
             {/* Details Modal */}
-            <RegistroDetailsModal registroId={detailRegistroId} fecha={detailFecha} onClose={() => setDetailRegistroId(null)} />
+            <RegistroDetailsModal registroId={detailRegistroId} fecha={detailFecha} onClose={() => setDetailRegistroId(null)} lang={lang} />
         </div>
     );
 };

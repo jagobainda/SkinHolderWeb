@@ -2,19 +2,21 @@ import React, { useEffect, useState, useMemo } from "react";
 import { getItemPrecios } from "@lib/itemPrecios";
 import { getUserItems } from "@lib/userItems";
 import { getTranslations } from "@i18n/index";
+import type { Lang } from "@i18n/index";
 import type { ItemDetalle } from "@app-types/index";
 
 interface RegistroDetailsModalProps {
     registroId: number | null;
     fecha: string | null;
     onClose: () => void;
+    lang: Lang;
 }
 
 type SortColumn = "itemName" | "cantidad" | "precioSteam" | "precioGamerPay" | "precioCSFloat";
 type SortDirection = "asc" | "desc";
 
-export const RegistroDetailsModal: React.FC<RegistroDetailsModalProps> = ({ registroId, fecha, onClose }) => {
-    const t = getTranslations();
+export const RegistroDetailsModal: React.FC<RegistroDetailsModalProps> = ({ registroId, fecha, onClose, lang }) => {
+    const t = getTranslations(lang);
     const [items, setItems] = useState<ItemDetalle[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [sortColumn, setSortColumn] = useState<SortColumn | null>(null);

@@ -1,14 +1,16 @@
 import React from "react";
 import { getTranslations } from "@i18n/index";
+import type { Lang } from "@i18n/index";
 
 interface ActionsCardProps {
     onConsultar: () => void;
     onHistorial: () => void;
     isEnabled: boolean;
+    lang: Lang;
 }
 
-export const ActionsCard: React.FC<ActionsCardProps> = ({ onConsultar, onHistorial, isEnabled }) => {
-    const t = getTranslations();
+export const ActionsCard: React.FC<ActionsCardProps> = ({ onConsultar, onHistorial, isEnabled, lang }) => {
+    const t = getTranslations(lang);
 
     return (
         <div className="group relative h-full">

@@ -1,5 +1,6 @@
 import React from "react";
 import { getTranslations } from "@i18n/index";
+import type { Lang } from "@i18n/index";
 
 interface ProgressCardProps {
     platform: "steam" | "gamerpay" | "csfloat";
@@ -8,6 +9,7 @@ interface ProgressCardProps {
     totalPrice: number;
     onShowDetails: () => void;
     isEnabled: boolean;
+    lang: Lang;
 }
 
 const platformConfig = {
@@ -28,8 +30,8 @@ const platformConfig = {
     }
 };
 
-export const ProgressCard: React.FC<ProgressCardProps> = ({ platform, progress, total, totalPrice, onShowDetails, isEnabled }) => {
-    const t = getTranslations();
+export const ProgressCard: React.FC<ProgressCardProps> = ({ platform, progress, total, totalPrice, onShowDetails, isEnabled, lang }) => {
+    const t = getTranslations(lang);
     const config = platformConfig[platform];
     const percentage = total > 0 ? (progress / total) * 100 : 100;
 

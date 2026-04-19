@@ -3,11 +3,14 @@ import AppLayout from '../layouts/AppLayout.astro'
 import TopNavbar from '../components/shared/TopNavbar.astro'
 import RegistrosGrid from '../components/registros/RegistrosGrid.astro'
 import { RegistrosInteractive } from '../components/registros/RegistrosInteractive'
+
+const acceptLang = Astro.request.headers.get('accept-language') ?? ''
+const lang = acceptLang.startsWith('es') ? 'es' : 'en'
 ---
 
 <AppLayout title="SkinHolder - Registros">
     <TopNavbar />
     <RegistrosGrid>
-        <RegistrosInteractive client:load />
+        <RegistrosInteractive lang={lang} client:load />
     </RegistrosGrid>
 </AppLayout>

@@ -4,6 +4,7 @@ import { getUserItems, addUserItem } from "@lib/userItems";
 import { getItems } from "@lib/items";
 import { useToast } from "@hooks/useToast";
 import { getTranslations } from "@i18n/index";
+import type { Lang } from "@i18n/index";
 import { ToastContainer } from "@components/shared/ToastContainer";
 import { UserItemCard } from "./UserItemCard";
 import type { UserItem, Item } from "@app-types/index";
@@ -14,8 +15,8 @@ function getUserIdFromCookie(): number | null {
     return match ? parseInt(decodeURIComponent(match[1]), 10) : null;
 }
 
-export const UserItemsView: React.FC = () => {
-    const t = getTranslations();
+export const UserItemsView: React.FC<{ lang: Lang }> = ({ lang }) => {
+    const t = getTranslations(lang);
     const { toasts, showToast, removeToast } = useToast();
 
     const [userItems, setUserItems] = useState<UserItem[]>([]);
@@ -170,8 +171,8 @@ export const UserItemsView: React.FC = () => {
                                         {filteredItems.length === 0 ? (
                                             <p className="text-gray-500 text-sm p-3">{ti.noItemsFound}</p>
                                         ) : (
-                                            filteredItems.map(item => (
-                                                <button key={item.itemId} onClick={() => setSelectedItemId(item.itemId)} className={`w-full text-left px-3 py-2 text-sm transition-colors cursor-pointer ${selectedItemId === item.itemId ? "bg-primary/20 text-primary" : "text-white hover:bg-surface-elevated"}`}>
+                                            filteredItems.map((item, index) => (
+                                                <button key={`${item.itemId}-${index}`} onClick={() => setSelectedItemId(item.itemId)} className={`w-full text-left px-3 py-2 text-sm transition-colors cursor-pointer ${selectedItemId === item.itemId ? "bg-primary/20 text-primary" : "text-white hover:bg-surface-elevated"}`}>
                                                     {item.nombre}
                                                 </button>
                                             ))
