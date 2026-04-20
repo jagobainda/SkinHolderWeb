@@ -1,13 +1,13 @@
 ---
 import AppLayout from '../layouts/AppLayout.astro'
 import TopNavbar from '../components/shared/TopNavbar.astro'
+import { ConfigPage } from '../components/pages/ConfigPage'
+
+const acceptLang = Astro.request.headers.get('accept-language') ?? ''
+const lang = acceptLang.startsWith('es') ? 'es' : 'en'
 ---
 
 <AppLayout title="SkinHolder - Config">
     <TopNavbar />
-    <div class="min-h-screen pt-16">
-        <main class="flex items-center justify-center min-h-[calc(100vh-4rem)] px-4 py-8">
-            <span class="text-white text-xl">Configuración — coming soon</span>
-        </main>
-    </div>
+    <ConfigPage lang={lang} client:load />
 </AppLayout>

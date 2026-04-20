@@ -117,5 +117,40 @@
             "viewDetails": "Ver detalles",
             "deleteRegistro": "Eliminar registro"
         }
+    },
+    "config": {
+        "title": "Configuración",
+        "accountInfo": {
+            "title": "Información de la cuenta",
+            "username": "Usuario",
+            "memberSince": "Miembro desde",
+            "notAvailable": "No disponible"
+        },
+        "changePassword": {
+            "title": "Cambiar contraseña",
+            "currentPassword": "Contraseña actual",
+            "newPassword": "Nueva contraseña",
+            "confirmPassword": "Confirmar nueva contraseña",
+            "submit": "Cambiar contraseña",
+            "emptyCurrentPassword": "Introduce tu contraseña actual.",
+            "emptyNewPassword": "Introduce la nueva contraseña.",
+            "minLength": "La nueva contraseña debe tener al menos 6 caracteres.",
+            "mismatch": "Las contraseñas nuevas no coinciden.",
+            "samePassword": "La nueva contraseña no puede ser igual a la actual.",
+            "success": "Contraseña actualizada correctamente.",
+            "error": "Error al cambiar la contraseña."
+        },
+        "deleteAccount": {
+            "title": "Eliminar cuenta",
+            "warning": "Esta acción es permanente. Tu cuenta será desactivada y no podrás volver a iniciar sesión.",
+            "passwordPlaceholder": "Introduce tu contraseña para confirmar",
+            "submit": "Eliminar cuenta",
+            "emptyPassword": "Introduce tu contraseña para confirmar.",
+            "error": "Error al eliminar la cuenta.",
+            "confirmTitle": "¿Eliminar cuenta?",
+            "confirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.",
+            "confirmYes": "Sí, eliminar",
+            "confirmNo": "Cancelar"
+        }
     }
 }

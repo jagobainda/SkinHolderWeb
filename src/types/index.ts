@@ -99,6 +99,13 @@ export interface DashboardStats {
     variance: VarianceStats;
 }
 
+// User Settings
+export interface UserInfo {
+    username: string;
+    userId: number;
+    createdAt: string;
+}
+
 // Toast
 export type ToastType = "success" | "danger" | "warning" | "info";
 

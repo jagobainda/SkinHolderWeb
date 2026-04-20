@@ -117,5 +117,40 @@
             "viewDetails": "View details",
             "deleteRegistro": "Delete record"
         }
+    },
+    "config": {
+        "title": "Settings",
+        "accountInfo": {
+            "title": "Account Information",
+            "username": "Username",
+            "memberSince": "Member since",
+            "notAvailable": "Not available"
+        },
+        "changePassword": {
+            "title": "Change Password",
+            "currentPassword": "Current password",
+            "newPassword": "New password",
+            "confirmPassword": "Confirm new password",
+            "submit": "Change password",
+            "emptyCurrentPassword": "Enter your current password.",
+            "emptyNewPassword": "Enter the new password.",
+            "minLength": "New password must be at least 6 characters.",
+            "mismatch": "New passwords do not match.",
+            "samePassword": "New password cannot be the same as the current one.",
+            "success": "Password updated successfully.",
+            "error": "Error changing password."
+        },
+        "deleteAccount": {
+            "title": "Delete Account",
+            "warning": "This action is permanent. Your account will be deactivated and you will not be able to log in again.",
+            "passwordPlaceholder": "Enter your password to confirm",
+            "submit": "Delete account",
+            "emptyPassword": "Enter your password to confirm.",
+            "error": "Error deleting account.",
+            "confirmTitle": "Delete account?",
+            "confirmMessage": "Are you sure you want to delete your account? This action cannot be undone.",
+            "confirmYes": "Yes, delete",
+            "confirmNo": "Cancel"
+        }
     }
 }
