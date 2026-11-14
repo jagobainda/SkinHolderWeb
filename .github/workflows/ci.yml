@@ -1,0 +1,75 @@
+name: CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+# Cancela ejecuciones antiguas de la misma rama/PR cuando llega un push nuevo.
+concurrency:
+    group: ci-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+
+            - name: Setup Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22
+                  cache: npm
+
+            - name: Install dependencies
+              run: npm ci
+
+            # Comprobación de tipos de los .astro, .ts y .tsx.
+            - name: Type check
+              run: npx astro check
+
+            - name: Build
+              run: npm run build
+
+    format:
+        name: Format (Prettier)
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+
+            - name: Setup Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22
+                  cache: npm
+
+            # Prettier necesita los plugins (astro, tailwindcss) instalados
+            # para resolver el formato igual que en local.
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Check formatting
+              run: npm run format:check
+
+    audit:
+        name: Security audit
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+
+            - name: Setup Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22
+                  cache: npm
+
+            - name: Install dependencies
+              run: npm ci
+
+            # Falla solo ante vulnerabilidades high/critical para no bloquear
+            # el CI por avisos de baja severidad (a menudo en devDependencies).
+            - name: npm audit
+              run: npm audit --audit-level=high
