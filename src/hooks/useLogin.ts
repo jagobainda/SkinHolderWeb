@@ -35,7 +35,10 @@ export const useLogin = () => {
     const [error, setError] = useState<string | null>(null);
     const [requestAccessLoading, setRequestAccessLoading] = useState(false);
 
-    const login = async (dto: LoginRequest, showToast: (type: "success" | "danger", title: string, message: string) => void) => {
+    const login = async (
+        dto: LoginRequest,
+        showToast: (type: "success" | "danger", title: string, message: string) => void,
+    ) => {
         if (!dto.username?.trim() || !dto.password?.trim()) {
             showToast("danger", "Campos requeridos", "El email y la contraseña son obligatorios");
             return null;
@@ -60,7 +63,10 @@ export const useLogin = () => {
         }
     };
 
-    const requestAccess = async (email: string, showToast: (type: "success" | "danger", title: string, message: string) => void): Promise<boolean> => {
+    const requestAccess = async (
+        email: string,
+        showToast: (type: "success" | "danger", title: string, message: string) => void,
+    ): Promise<boolean> => {
         setRequestAccessLoading(true);
         try {
             const status = await authRequestAccess(email);

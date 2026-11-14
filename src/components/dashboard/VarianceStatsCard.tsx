@@ -25,7 +25,7 @@ export const VarianceStatsCard: React.FC<Props> = ({ stats }) => {
         return {
             formatted: `${isPositive ? "+" : ""}${value.toFixed(2)}%`,
             color: isPositive ? "text-green-400" : "text-red-400",
-            icon: isPositive ? IconTrendingUp : IconTrendingDown
+            icon: isPositive ? IconTrendingUp : IconTrendingDown,
         };
     };
 
@@ -35,19 +35,19 @@ export const VarianceStatsCard: React.FC<Props> = ({ stats }) => {
                 return {
                     week: formatVariance(stats.weeklyVariancePercentSteam),
                     month: formatVariance(stats.monthlyVariancePercentSteam),
-                    year: formatVariance(stats.yearlyVariancePercentSteam)
+                    year: formatVariance(stats.yearlyVariancePercentSteam),
                 };
             case "gamerpay":
                 return {
                     week: formatVariance(stats.weeklyVariancePercentGamerPay),
                     month: formatVariance(stats.monthlyVariancePercentGamerPay),
-                    year: formatVariance(stats.yearlyVariancePercentGamerPay)
+                    year: formatVariance(stats.yearlyVariancePercentGamerPay),
                 };
             case "csfloat":
                 return {
                     week: formatVariance(stats.weeklyVariancePercentCSFloat),
                     month: formatVariance(stats.monthlyVariancePercentCSFloat),
-                    year: formatVariance(stats.yearlyVariancePercentCSFloat)
+                    year: formatVariance(stats.yearlyVariancePercentCSFloat),
                 };
         }
     };
@@ -56,26 +56,40 @@ export const VarianceStatsCard: React.FC<Props> = ({ stats }) => {
 
     const titleActions = (
         <div className="flex gap-2">
-            <button onClick={() => setSelectedPlatform("steam")} className={`p-2 rounded-lg transition-colors ${selectedPlatform === "steam" ? "bg-blue-500/20 text-blue-400" : "bg-gray-800 text-gray-400 hover:bg-gray-700"}`}>
-                <IconSteam className="w-4 h-4" />
+            <button
+                onClick={() => setSelectedPlatform("steam")}
+                className={`rounded-lg p-2 transition-colors ${selectedPlatform === "steam" ? "bg-blue-500/20 text-blue-400" : "bg-gray-800 text-gray-400 hover:bg-gray-700"}`}
+            >
+                <IconSteam className="h-4 w-4" />
             </button>
 
-            <button onClick={() => setSelectedPlatform("gamerpay")} className={`p-2 rounded-lg transition-colors ${selectedPlatform === "gamerpay" ? "bg-purple-500/20 text-purple-400" : "bg-gray-800 text-gray-400 hover:bg-gray-700"}`}>
-                <img src="/images/gamerpay_icon.png" alt="Gamerpay" className="w-4 h-4" />
+            <button
+                onClick={() => setSelectedPlatform("gamerpay")}
+                className={`rounded-lg p-2 transition-colors ${selectedPlatform === "gamerpay" ? "bg-purple-500/20 text-purple-400" : "bg-gray-800 text-gray-400 hover:bg-gray-700"}`}
+            >
+                <img src="/images/gamerpay_icon.png" alt="Gamerpay" className="h-4 w-4" />
             </button>
 
-            <button onClick={() => setSelectedPlatform("csfloat")} className={`p-2 rounded-lg transition-colors ${selectedPlatform === "csfloat" ? "bg-orange-500/20 text-orange-400" : "bg-gray-800 text-gray-400 hover:bg-gray-700"}`}>
-                <img src="/images/csfloat_icon.svg" alt="CSFloat" className="w-4 h-4" />
+            <button
+                onClick={() => setSelectedPlatform("csfloat")}
+                className={`rounded-lg p-2 transition-colors ${selectedPlatform === "csfloat" ? "bg-orange-500/20 text-orange-400" : "bg-gray-800 text-gray-400 hover:bg-gray-700"}`}
+            >
+                <img src="/images/csfloat_icon.svg" alt="CSFloat" className="h-4 w-4" />
             </button>
         </div>
     );
 
     return (
-        <StatsCard title={t.main.dashboard.variance.title} icon={IconTrendingUp} iconColor="text-purple-400" actions={titleActions}>
+        <StatsCard
+            title={t.main.dashboard.variance.title}
+            icon={IconTrendingUp}
+            iconColor="text-purple-400"
+            actions={titleActions}
+        >
             <div className="flex items-center justify-between">
                 <span className="text-gray-400">{t.main.dashboard.variance.lastWeek}</span>
                 <div className="flex items-center gap-2">
-                    <week.icon className={`w-4 h-4 ${week.color}`} />
+                    <week.icon className={`h-4 w-4 ${week.color}`} />
                     <span className={`font-semibold ${week.color}`}>{week.formatted}</span>
                 </div>
             </div>
@@ -83,7 +97,7 @@ export const VarianceStatsCard: React.FC<Props> = ({ stats }) => {
             <div className="flex items-center justify-between">
                 <span className="text-gray-400">{t.main.dashboard.variance.lastMonth}</span>
                 <div className="flex items-center gap-2">
-                    <month.icon className={`w-4 h-4 ${month.color}`} />
+                    <month.icon className={`h-4 w-4 ${month.color}`} />
                     <span className={`font-semibold ${month.color}`}>{month.formatted}</span>
                 </div>
             </div>
@@ -91,7 +105,7 @@ export const VarianceStatsCard: React.FC<Props> = ({ stats }) => {
             <div className="flex items-center justify-between">
                 <span className="text-gray-400">{t.main.dashboard.variance.lastYear}</span>
                 <div className="flex items-center gap-2">
-                    <year.icon className={`w-4 h-4 ${year.color}`} />
+                    <year.icon className={`h-4 w-4 ${year.color}`} />
                     <span className={`font-semibold ${year.color}`}>{year.formatted}</span>
                 </div>
             </div>

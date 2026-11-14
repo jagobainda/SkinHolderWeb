@@ -50,23 +50,53 @@ export const UserItemCard: React.FC<UserItemCardProps> = ({ userItem, onSaved })
         }
     }, [userItem, cantidad, onSaved]);
 
-    const nameColor = saveStatus === "success" ? "text-primary" : saveStatus === "error" ? "text-red-400" : isDirty ? "text-primary" : "text-white";
+    const nameColor =
+        saveStatus === "success"
+            ? "text-primary"
+            : saveStatus === "error"
+              ? "text-red-400"
+              : isDirty
+                ? "text-primary"
+                : "text-white";
 
     return (
-        <div className="bg-surface-card rounded-lg border border-white/8 p-3 flex items-center gap-3 min-h-[3.6rem]">
-            <span onClick={() => setExpanded(prev => !prev)} className={`font-medium text-sm transition-colors duration-200 min-w-0 flex-1 cursor-pointer ${expanded ? "" : "truncate"} ${nameColor}`}>
+        <div className="flex min-h-[3.6rem] items-center gap-3 rounded-lg border border-white/8 bg-surface-card p-3">
+            <span
+                onClick={() => setExpanded(prev => !prev)}
+                className={`min-w-0 flex-1 cursor-pointer text-sm font-medium transition-colors duration-200 ${expanded ? "" : "truncate"} ${nameColor}`}
+            >
                 {userItem.itemName}
             </span>
             {!expanded && (
-                <div className="flex items-center gap-1.5 shrink-0">
-                    <input type="text" inputMode="numeric" value={cantidad} onChange={handleCantidadChange} maxLength={9} disabled={isBusy} className="w-16 h-8 text-center bg-surface border border-white/8 rounded-lg text-white text-sm focus:outline-none focus:border-primary disabled:opacity-50" />
-                    <button onClick={handleDecrement} disabled={isBusy} className="h-8 w-8 flex items-center justify-center rounded-lg bg-surface border border-white/8 text-white hover:bg-surface-elevated transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
+                <div className="flex shrink-0 items-center gap-1.5">
+                    <input
+                        type="text"
+                        inputMode="numeric"
+                        value={cantidad}
+                        onChange={handleCantidadChange}
+                        maxLength={9}
+                        disabled={isBusy}
+                        className="h-8 w-16 rounded-lg border border-white/8 bg-surface text-center text-sm text-white focus:border-primary focus:outline-none disabled:opacity-50"
+                    />
+                    <button
+                        onClick={handleDecrement}
+                        disabled={isBusy}
+                        className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-white/8 bg-surface text-white transition-colors hover:bg-surface-elevated disabled:cursor-not-allowed disabled:opacity-50"
+                    >
                         <FiMinus size={13} />
                     </button>
-                    <button onClick={handleIncrement} disabled={isBusy} className="h-8 w-8 flex items-center justify-center rounded-lg bg-surface border border-white/8 text-white hover:bg-surface-elevated transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
+                    <button
+                        onClick={handleIncrement}
+                        disabled={isBusy}
+                        className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-white/8 bg-surface text-white transition-colors hover:bg-surface-elevated disabled:cursor-not-allowed disabled:opacity-50"
+                    >
                         <FiPlus size={13} />
                     </button>
-                    <button onClick={handleSave} disabled={isBusy || !isDirty} className="h-8 w-8 flex items-center justify-center rounded-lg bg-primary text-surface font-bold hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
+                    <button
+                        onClick={handleSave}
+                        disabled={isBusy || !isDirty}
+                        className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg bg-primary font-bold text-surface transition-colors hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
+                    >
                         <FiSave size={13} />
                     </button>
                 </div>

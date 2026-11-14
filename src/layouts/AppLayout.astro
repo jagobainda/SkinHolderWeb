@@ -1,11 +1,11 @@
 ---
 interface Props {
-    title: string
+    title: string;
 }
 
-const { title } = Astro.props
-const acceptLang = Astro.request.headers.get('accept-language') ?? ''
-const lang = acceptLang.startsWith('es') ? 'es' : 'en'
+const { title } = Astro.props;
+const acceptLang = Astro.request.headers.get("accept-language") ?? "";
+const lang = acceptLang.startsWith("es") ? "es" : "en";
 ---
 
 <!doctype html>
@@ -24,5 +24,5 @@ const lang = acceptLang.startsWith('es') ? 'es' : 'en'
 </html>
 
 <style is:global>
-    @import '../styles/global.css';
+    @import "../styles/global.css";
 </style>

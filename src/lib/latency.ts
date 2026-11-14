@@ -21,7 +21,11 @@ export async function measureDatabaseLatency(): Promise<number> {
 }
 
 export async function measureAllLatencies() {
-    const [steam, gamerpay, csfloat] = await Promise.all([measureLatency("https://steamcommunity.com"), measureLatency("https://gamerpay.gg"), measureLatency("https://csfloat.com")]);
+    const [steam, gamerpay, csfloat] = await Promise.all([
+        measureLatency("https://steamcommunity.com"),
+        measureLatency("https://gamerpay.gg"),
+        measureLatency("https://csfloat.com"),
+    ]);
 
     return { steam, gamerpay, csfloat };
 }

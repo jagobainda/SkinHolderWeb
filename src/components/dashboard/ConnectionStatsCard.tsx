@@ -19,24 +19,30 @@ export const ConnectionStatsCard: React.FC<Props> = ({ stats }) => {
             <div className="flex items-center justify-between">
                 <span className="text-gray-400">{t.main.dashboard.connection.status}</span>
                 <div className="flex items-center gap-2">
-                    {isActive ? <IconCheckCircle className="text-green-400 w-4 h-4" /> : <IconXCircle className="text-red-400 w-4 h-4" />}
-                    <span className={isActive ? "text-green-400 font-semibold" : "text-red-400 font-semibold"}>{isActive ? t.main.dashboard.connection.active : t.main.dashboard.connection.inactive}</span>
+                    {isActive ? (
+                        <IconCheckCircle className="h-4 w-4 text-green-400" />
+                    ) : (
+                        <IconXCircle className="h-4 w-4 text-red-400" />
+                    )}
+                    <span className={isActive ? "font-semibold text-green-400" : "font-semibold text-red-400"}>
+                        {isActive ? t.main.dashboard.connection.active : t.main.dashboard.connection.inactive}
+                    </span>
                 </div>
             </div>
 
             <div className="flex items-center justify-between">
                 <span className="text-gray-400">{t.main.dashboard.connection.ping}</span>
                 <div className="flex items-center gap-2">
-                    <IconActivity className="text-primary w-4 h-4" />
-                    <span className="text-white font-semibold">{stats.ping}ms</span>
+                    <IconActivity className="h-4 w-4 text-primary" />
+                    <span className="font-semibold text-white">{stats.ping}ms</span>
                 </div>
             </div>
 
             <div className="flex items-center justify-between">
                 <span className="text-gray-400">{t.main.dashboard.connection.uptime}</span>
                 <div className="flex items-center gap-2">
-                    <IconClock className="text-purple-400 w-4 h-4" />
-                    <span className="text-white font-semibold">{stats.uptime}h</span>
+                    <IconClock className="h-4 w-4 text-purple-400" />
+                    <span className="font-semibold text-white">{stats.uptime}h</span>
                 </div>
             </div>
         </StatsCard>

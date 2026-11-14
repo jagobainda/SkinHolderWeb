@@ -14,13 +14,21 @@ export const ActionsCard: React.FC<ActionsCardProps> = ({ onConsultar, onHistori
 
     return (
         <div className="group relative h-full">
-            <div className="absolute -inset-0.5 bg-primary rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+            <div className="absolute -inset-0.5 rounded-xl bg-primary opacity-0 blur transition duration-300 group-hover:opacity-75"></div>
 
-            <div className="relative bg-surface-card rounded-xl py-6 px-8 shadow-lg border border-white/8 h-full flex flex-col justify-center gap-3">
-                <button onClick={onConsultar} disabled={!isEnabled} className={`py-2.5 px-4 rounded-lg font-semibold transition-all duration-200 border ${isEnabled ? "bg-surface text-primary border-transparent hover:bg-surface-elevated cursor-pointer shadow-[0_4px_10px_rgba(0,0,0,0.2)]" : "bg-surface-card text-[#666666] border-[#444444] cursor-not-allowed"}`}>
+            <div className="relative flex h-full flex-col justify-center gap-3 rounded-xl border border-white/8 bg-surface-card px-8 py-6 shadow-lg">
+                <button
+                    onClick={onConsultar}
+                    disabled={!isEnabled}
+                    className={`rounded-lg border px-4 py-2.5 font-semibold transition-all duration-200 ${isEnabled ? "cursor-pointer border-transparent bg-surface text-primary shadow-[0_4px_10px_rgba(0,0,0,0.2)] hover:bg-surface-elevated" : "cursor-not-allowed border-[#444444] bg-surface-card text-[#666666]"}`}
+                >
                     {t.registros.consult}
                 </button>
-                <button onClick={onHistorial} disabled={!isEnabled} className={`py-2.5 px-4 rounded-lg font-semibold transition-all duration-200 border ${isEnabled ? "bg-surface text-primary border-transparent hover:bg-surface-elevated cursor-pointer shadow-[0_4px_10px_rgba(0,0,0,0.2)]" : "bg-surface-card text-[#666666] border-[#444444] cursor-not-allowed"}`}>
+                <button
+                    onClick={onHistorial}
+                    disabled={!isEnabled}
+                    className={`rounded-lg border px-4 py-2.5 font-semibold transition-all duration-200 ${isEnabled ? "cursor-pointer border-transparent bg-surface text-primary shadow-[0_4px_10px_rgba(0,0,0,0.2)] hover:bg-surface-elevated" : "cursor-not-allowed border-[#444444] bg-surface-card text-[#666666]"}`}
+                >
                     {t.registros.history}
                 </button>
             </div>

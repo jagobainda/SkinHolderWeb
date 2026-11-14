@@ -17,7 +17,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
     try {
         const res = await fetch(`${API_BASE}/Auth/validate`, {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
         });
 
         const data = await res.json();

@@ -14,9 +14,9 @@ export default defineConfig({
                 "/api": {
                     target: "https://shapi.jagoba.dev",
                     changeOrigin: true,
-                    rewrite: path => path.replace(/^\/api/, "")
-                }
-            }
-        }
-    }
+                    rewrite: path => path.replace(/^\/api/, ""),
+                },
+            },
+        },
+    },
 });

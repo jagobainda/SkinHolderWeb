@@ -9,9 +9,13 @@ interface ToastContainerProps {
 
 export const ToastContainer: React.FC<ToastContainerProps> = ({ toasts, onRemove }) => {
     return (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2">
+        <div className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 flex-col gap-2">
             {toasts.map(toast => (
-                <div key={toast.id} className="animate-slide-in-bottom cursor-pointer" onClick={() => onRemove(toast.id)}>
+                <div
+                    key={toast.id}
+                    className="animate-slide-in-bottom cursor-pointer"
+                    onClick={() => onRemove(toast.id)}
+                >
                     <Alert variant={toast.type} title={toast.title} message={toast.message} />
                 </div>
             ))}

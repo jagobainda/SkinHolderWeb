@@ -44,8 +44,14 @@ export const LoginPage: React.FC = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <LoginForm onSubmit={handleSubmit} onForgotPassword={handleForgotPassword} onRequestAccess={handleRequestAccess} loading={isLoading} requestAccessLoading={requestAccessLoading} />
+        <div className="flex min-h-screen items-center justify-center">
+            <LoginForm
+                onSubmit={handleSubmit}
+                onForgotPassword={handleForgotPassword}
+                onRequestAccess={handleRequestAccess}
+                loading={isLoading}
+                requestAccessLoading={requestAccessLoading}
+            />
             <ToastContainer toasts={toasts} onRemove={removeToast} />
         </div>
     );

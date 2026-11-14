@@ -52,7 +52,7 @@ export async function getVarianceStats(): Promise<VarianceStats> {
             yearlyVariancePercentGamerPay: -101,
             weeklyVariancePercentCSFloat: -101,
             monthlyVariancePercentCSFloat: -101,
-            yearlyVariancePercentCSFloat: -101
+            yearlyVariancePercentCSFloat: -101,
         };
     }
 }

@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+
+# Generated / lockfiles
+package-lock.json
+
+# IDE
+.idea/
+
+# Logs & misc
+*.log
+.DS_Store

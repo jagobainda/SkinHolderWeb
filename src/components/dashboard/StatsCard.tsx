@@ -11,12 +11,12 @@ interface Props {
 export const StatsCard: React.FC<Props> = ({ title, icon: Icon, iconColor, actions, children }) => {
     return (
         <div className="group relative">
-            <div className="absolute -inset-0.5 bg-primary rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+            <div className="absolute -inset-0.5 rounded-xl bg-primary opacity-0 blur transition duration-300 group-hover:opacity-75"></div>
 
-            <div className="relative bg-surface-card rounded-xl p-6 border border-white/8 hover:border-primary/50 transition-colors h-full">
-                <div className="flex items-center justify-between gap-3 mb-4 border-b border-white/8 pb-3">
+            <div className="relative h-full rounded-xl border border-white/8 bg-surface-card p-6 transition-colors hover:border-primary/50">
+                <div className="mb-4 flex items-center justify-between gap-3 border-b border-white/8 pb-3">
                     <div className="flex items-center gap-3">
-                        <Icon className={`w-7 h-7 ${iconColor}`} />
+                        <Icon className={`h-7 w-7 ${iconColor}`} />
                         <h3 className="text-xl font-bold text-primary">{title}</h3>
                     </div>
                     {actions}

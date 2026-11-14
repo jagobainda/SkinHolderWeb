@@ -22,7 +22,7 @@ const initialState: RegistrosState = {
     detallesCSFloatEnabled: false,
     botonesHabilitados: true,
     isLoading: false,
-    error: null
+    error: null,
 };
 
 export const useRegistros = () => {
@@ -42,7 +42,7 @@ export const useRegistros = () => {
 
     const obtenerPrecios = useCallback(
         async (
-            items: UserItem[]
+            items: UserItem[],
         ): Promise<{
             precios: ItemPrecio[];
             totalSteam: number;
@@ -79,7 +79,7 @@ export const useRegistros = () => {
                     preciogamerpay: gamerPayItem?.price ?? 0,
                     preciocsfloat: 0,
                     useritemid: userItem.useritemid,
-                    registroid: 0
+                    registroid: 0,
                 });
 
                 setState(prev => ({
@@ -92,7 +92,7 @@ export const useRegistros = () => {
                     totalCSFloat,
                     itemsWarningSteam: warningSteam,
                     itemsErrorSteam: errorSteam,
-                    itemsNoListadosGamerPay: noListadosGamerPay
+                    itemsNoListadosGamerPay: noListadosGamerPay,
                 }));
 
                 await new Promise(resolve => setTimeout(resolve, 3000));
@@ -102,44 +102,52 @@ export const useRegistros = () => {
                 ...prev,
                 totalSteam,
                 totalGamerPay,
-                totalCSFloat
+                totalCSFloat,
             }));
 
             return { precios, totalSteam, totalGamerPay, totalCSFloat };
         },
-        []
+        [],
     );
 
-    const guardarRegistro = useCallback(async (precios: ItemPrecio[], totalSteam: number, totalGamerPay: number, totalCSFloat: number): Promise<boolean> => {
-        const userIdMatch = document.cookie.match(/(?:^|; )sh_userId=([^;]*)/);
-        const userId = userIdMatch ? decodeURIComponent(userIdMatch[1]) : null;
-        if (!userId) throw new Error("No se encontró el ID del usuario");
+    const guardarRegistro = useCallback(
+        async (
+            precios: ItemPrecio[],
+            totalSteam: number,
+            totalGamerPay: number,
+            totalCSFloat: number,
+        ): Promise<boolean> => {
+            const userIdMatch = document.cookie.match(/(?:^|; )sh_userId=([^;]*)/);
+            const userId = userIdMatch ? decodeURIComponent(userIdMatch[1]) : null;
+            if (!userId) throw new Error("No se encontró el ID del usuario");
 
-        const registro: Registro = {
-            registroid: 0,
-            fechahora: new Date().toISOString(),
-            totalsteam: totalSteam,
-            totalgamerpay: totalGamerPay,
-            totalcsfloat: totalCSFloat,
-            userid: parseInt(userId)
-        };
+            const registro: Registro = {
+                registroid: 0,
+                fechahora: new Date().toISOString(),
+                totalsteam: totalSteam,
+                totalgamerpay: totalGamerPay,
+                totalcsfloat: totalCSFloat,
+                userid: parseInt(userId),
+            };
 
-        const registroId = await createRegistro(registro);
-        if (registroId < 1) throw new Error("Error al crear el registro");
+            const registroId = await createRegistro(registro);
+            if (registroId < 1) throw new Error("Error al crear el registro");
 
-        const preciosConRegistro = precios.map(precio => ({
-            ...precio,
-            registroid: registroId
-        }));
+            const preciosConRegistro = precios.map(precio => ({
+                ...precio,
+                registroid: registroId,
+            }));
 
-        const successItemPrecios = await createItemPrecios(preciosConRegistro);
-        if (!successItemPrecios) throw new Error("Error al guardar los precios de los items");
+            const successItemPrecios = await createItemPrecios(preciosConRegistro);
+            if (!successItemPrecios) throw new Error("Error al guardar los precios de los items");
 
-        setCurrentRegistro({ ...registro, registroid: registroId });
-        setItemPrecios(preciosConRegistro);
+            setCurrentRegistro({ ...registro, registroid: registroId });
+            setItemPrecios(preciosConRegistro);
 
-        return true;
-    }, []);
+            return true;
+        },
+        [],
+    );
 
     const consultar = useCallback(async () => {
         setState(prev => ({
@@ -149,7 +157,7 @@ export const useRegistros = () => {
             error: null,
             detallesSteamEnabled: false,
             detallesGamerPayEnabled: false,
-            detallesCSFloatEnabled: false
+            detallesCSFloatEnabled: false,
         }));
 
         try {
@@ -166,19 +174,19 @@ export const useRegistros = () => {
                 ...prev,
                 detallesSteamEnabled: totalSteam > 0,
                 detallesGamerPayEnabled: totalGamerPay > 0,
-                detallesCSFloatEnabled: totalCSFloat > 0
+                detallesCSFloatEnabled: totalCSFloat > 0,
             }));
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : "Error desconocido al consultar precios";
             setState(prev => ({
                 ...prev,
-                error: errorMessage
+                error: errorMessage,
             }));
         } finally {
             setState(prev => ({
                 ...prev,
                 isLoading: false,
-                botonesHabilitados: true
+                botonesHabilitados: true,
             }));
         }
     }, [reset, obtenerUserItems, obtenerPrecios, guardarRegistro]);
@@ -196,6 +204,6 @@ export const useRegistros = () => {
         currentRegistro,
         consultar,
         mostrarDetalles,
-        historialRegistros
+        historialRegistros,
     };
 };

@@ -24,7 +24,7 @@ const createErrorResponse = (marketHashName: string): SteamItemInfo => ({
     hashName: marketHashName,
     price: -1,
     isError: true,
-    isWarning: false
+    isWarning: false,
 });
 
 export async function getSteamPrice(marketHashName: string): Promise<SteamItemInfo> {
@@ -43,14 +43,16 @@ export async function getSteamPrice(marketHashName: string): Promise<SteamItemIn
             await new Promise(resolve => setTimeout(resolve, POLLING_INTERVAL_MS));
 
             try {
-                const { data: taskStatus } = await api.get<TaskStatusResponse>(`/External/GetSteamPriceStatus/${taskId}`);
+                const { data: taskStatus } = await api.get<TaskStatusResponse>(
+                    `/External/GetSteamPriceStatus/${taskId}`,
+                );
 
                 if (taskStatus.status === "completed") {
                     return {
                         hashName: marketHashName,
                         price: taskStatus.price ?? -1,
                         isError: false,
-                        isWarning: false
+                        isWarning: false,
                     };
                 }
 

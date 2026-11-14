@@ -125,6 +125,6 @@ export function useUserSettings(lang: Lang) {
         showDeleteConfirm,
         handleDeleteAccount,
         confirmDeleteAccount,
-        cancelDeleteAccount
+        cancelDeleteAccount,
     };
 }

@@ -15,6 +15,6 @@ export async function getGamerPayItems(): Promise<GamerPayItemInfo[]> {
 
     return data.map(element => ({
         name: element.item,
-        price: element.price
+        price: element.price,
     }));
 }

@@ -9,7 +9,13 @@ type Props = {
     requestAccessLoading?: boolean;
 };
 
-export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onRequestAccess, loading, requestAccessLoading = false }) => {
+export const LoginForm: React.FC<Props> = ({
+    onSubmit,
+    onForgotPassword,
+    onRequestAccess,
+    loading,
+    requestAccessLoading = false,
+}) => {
     const t = getTranslations();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -27,73 +33,130 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
     };
 
     return (
-        <div className="flex flex-col lg:flex-row gap-8 items-center py-8 lg:py-0 animate-fade-slide-up">
+        <div className="animate-fade-slide-up flex flex-col items-center gap-8 py-8 lg:flex-row lg:py-0">
             <div className="flex flex-col items-center gap-4">
                 <div className="group relative">
-                    <div className="absolute -inset-0.5 bg-primary rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+                    <div className="absolute -inset-0.5 rounded-xl bg-primary opacity-0 blur transition duration-300 group-hover:opacity-75"></div>
 
-                    <div className="relative bg-surface-card rounded-xl p-8 w-88 border border-white/8">
+                    <div className="relative w-88 rounded-xl border border-white/8 bg-surface-card p-8">
                         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                            <div className="relative w-full mb-6 flex justify-center">
+                            <div className="relative mb-6 flex w-full justify-center">
                                 <div className="relative">
                                     <img src="/images/logo_login.png" alt="Logo" className="h-52 w-auto" />
                                     <div className="absolute inset-0 flex items-center justify-center">
-                                        <h1 className="text-5xl font-bold text-primary drop-shadow-lg">{t.login.title}</h1>
+                                        <h1 className="text-5xl font-bold text-primary drop-shadow-lg">
+                                            {t.login.title}
+                                        </h1>
                                     </div>
                                 </div>
                             </div>
 
-                            <input placeholder={t.login.username} value={username} onChange={e => setUsername(e.target.value)} className="px-2 py-2 border-b-2 text-gray-200 border-gray-600 focus:outline-none focus:border-primary bg-transparent transition-colors" />
+                            <input
+                                placeholder={t.login.username}
+                                value={username}
+                                onChange={e => setUsername(e.target.value)}
+                                className="border-b-2 border-gray-600 bg-transparent px-2 py-2 text-gray-200 transition-colors focus:border-primary focus:outline-none"
+                            />
 
-                            <input type="password" placeholder={t.login.password} value={password} onChange={e => setPassword(e.target.value)} className="px-2 py-2 border-b-2 text-gray-200 border-gray-600 focus:outline-none focus:border-primary bg-transparent transition-colors" />
+                            <input
+                                type="password"
+                                placeholder={t.login.password}
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                className="border-b-2 border-gray-600 bg-transparent px-2 py-2 text-gray-200 transition-colors focus:border-primary focus:outline-none"
+                            />
 
-                            <button type="button" onClick={onForgotPassword} className="text-primary text-sm hover:underline hover:cursor-pointer self-center">
+                            <button
+                                type="button"
+                                onClick={onForgotPassword}
+                                className="self-center text-sm text-primary hover:cursor-pointer hover:underline"
+                            >
                                 {t.login.forgotPassword}
                             </button>
 
-                            <button type="submit" disabled={loading} className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed hover:cursor-pointer transition-colors flex items-center justify-center min-h-[42px] font-semibold">
-                                {loading ? <div className="w-5 h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin"></div> : t.login.loginButton}
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="flex min-h-[42px] items-center justify-center rounded-lg bg-primary px-4 py-2 font-semibold text-gray-700 transition-colors hover:cursor-pointer hover:bg-primary-hover active:bg-primary-active disabled:cursor-not-allowed disabled:bg-gray-400"
+                            >
+                                {loading ? (
+                                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-gray-700 border-t-transparent"></div>
+                                ) : (
+                                    t.login.loginButton
+                                )}
                             </button>
 
-                            <button type="button" onClick={() => setShowRegisterPanel(!showRegisterPanel)} className="text-gray-400 text-sm hover:text-primary hover:cursor-pointer transition-colors">
+                            <button
+                                type="button"
+                                onClick={() => setShowRegisterPanel(!showRegisterPanel)}
+                                className="text-sm text-gray-400 transition-colors hover:cursor-pointer hover:text-primary"
+                            >
                                 {t.login.noAccess}
                             </button>
                         </form>
                     </div>
                 </div>
 
-                <div className="flex justify-between text-sm w-full px-2">
-                    <a href="https://jagoba.dev/projects/skinholder" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-hover transition-colors">
+                <div className="flex w-full justify-between px-2 text-sm">
+                    <a
+                        href="https://jagoba.dev/projects/skinholder"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary transition-colors hover:text-primary-hover"
+                    >
                         {t.login.aboutLink}
                     </a>
-                    <a href="https://jagoba.dev" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-hover transition-colors">
+                    <a
+                        href="https://jagoba.dev"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary transition-colors hover:text-primary-hover"
+                    >
                         {t.login.madeBy}
                     </a>
                 </div>
             </div>
 
             {showRegisterPanel && (
-                <div className="group relative animate-fade-slide-up">
-                    <div className="absolute -inset-0.5 bg-primary rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+                <div className="group animate-fade-slide-up relative">
+                    <div className="absolute -inset-0.5 rounded-xl bg-primary opacity-0 blur transition duration-300 group-hover:opacity-75"></div>
 
-                    <div className="relative bg-surface-card rounded-xl p-8 w-88 border border-white/8">
-                        <div className="flex justify-between items-center mb-6">
+                    <div className="relative w-88 rounded-xl border border-white/8 bg-surface-card p-8">
+                        <div className="mb-6 flex items-center justify-between">
                             <h2 className="text-2xl font-bold text-primary">{t.login.requestAccessTitle}</h2>
-                            <button onClick={() => setShowRegisterPanel(false)} className="text-gray-400 hover:text-gray-200 hover:cursor-pointer text-2xl">
+                            <button
+                                onClick={() => setShowRegisterPanel(false)}
+                                className="text-2xl text-gray-400 hover:cursor-pointer hover:text-gray-200"
+                            >
                                 ×
                             </button>
                         </div>
 
                         <div className="mb-6">
-                            <p className="text-gray-300 text-sm mb-2">{t.login.requestAccessDescription}</p>
-                            <p className="text-gray-400 text-xs">{t.login.requestAccessSubtitle}</p>
+                            <p className="mb-2 text-sm text-gray-300">{t.login.requestAccessDescription}</p>
+                            <p className="text-xs text-gray-400">{t.login.requestAccessSubtitle}</p>
                         </div>
 
                         <form onSubmit={handleRequestAccess} className="flex flex-col gap-4">
-                            <input type="email" placeholder={t.login.emailPlaceholder} value={email} onChange={e => setEmail(e.target.value)} required className="px-2 py-2 border-b-2 text-gray-200 border-gray-600 focus:outline-none focus:border-primary bg-transparent transition-colors" />
+                            <input
+                                type="email"
+                                placeholder={t.login.emailPlaceholder}
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                required
+                                className="border-b-2 border-gray-600 bg-transparent px-2 py-2 text-gray-200 transition-colors focus:border-primary focus:outline-none"
+                            />
 
-                            <button type="submit" disabled={requestAccessLoading} className="px-4 py-2 bg-primary text-gray-700 rounded-lg hover:bg-primary-hover active:bg-primary-active disabled:bg-gray-400 disabled:cursor-not-allowed hover:cursor-pointer transition-colors flex items-center justify-center min-h-[42px] font-semibold">
-                                {requestAccessLoading ? <div className="w-5 h-5 border-2 border-gray-700 border-t-transparent rounded-full animate-spin"></div> : t.login.requestAccessButton}
+                            <button
+                                type="submit"
+                                disabled={requestAccessLoading}
+                                className="flex min-h-[42px] items-center justify-center rounded-lg bg-primary px-4 py-2 font-semibold text-gray-700 transition-colors hover:cursor-pointer hover:bg-primary-hover active:bg-primary-active disabled:cursor-not-allowed disabled:bg-gray-400"
+                            >
+                                {requestAccessLoading ? (
+                                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-gray-700 border-t-transparent"></div>
+                                ) : (
+                                    t.login.requestAccessButton
+                                )}
                             </button>
                         </form>
                     </div>

@@ -41,7 +41,7 @@ export const RegistroDetailsModal: React.FC<RegistroDetailsModalProps> = ({ regi
                         precioCSFloat: precio.preciocsfloat,
                         totalSteam: precio.preciosteam * cantidad,
                         totalGamerPay: precio.preciogamerpay * cantidad,
-                        totalCSFloat: precio.preciocsfloat * cantidad
+                        totalCSFloat: precio.preciocsfloat * cantidad,
                     };
                 });
 
@@ -81,48 +81,71 @@ export const RegistroDetailsModal: React.FC<RegistroDetailsModalProps> = ({ regi
         () => ({
             steam: items.reduce((sum, i) => sum + i.totalSteam, 0),
             gamerPay: items.reduce((sum, i) => sum + i.totalGamerPay, 0),
-            csFloat: items.reduce((sum, i) => sum + i.totalCSFloat, 0)
+            csFloat: items.reduce((sum, i) => sum + i.totalCSFloat, 0),
         }),
-        [items]
+        [items],
     );
 
     const formatFecha = (fecha: string | null) => {
         if (!fecha) return "-";
         const date = new Date(fecha);
-        return date.toLocaleDateString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+        return date.toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+        });
     };
 
     if (registroId === null) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
-            <div className="relative bg-surface-card rounded-xl shadow-2xl border border-white/8 w-full max-w-5xl max-h-[85vh] overflow-hidden animate-fade-slide-up mx-4" onClick={e => e.stopPropagation()}>
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+            onClick={onClose}
+        >
+            <div
+                className="animate-fade-slide-up relative mx-4 max-h-[85vh] w-full max-w-5xl overflow-hidden rounded-xl border border-white/8 bg-surface-card shadow-2xl"
+                onClick={e => e.stopPropagation()}
+            >
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-white/8">
+                <div className="flex items-center justify-between border-b border-white/8 p-6">
                     <h2 className="text-xl font-bold text-white">{t.registros.details.title}</h2>
-                    <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-surface-elevated cursor-pointer">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <button
+                        onClick={onClose}
+                        className="cursor-pointer rounded-lg p-2 text-gray-400 transition-colors hover:bg-surface-elevated hover:text-white"
+                    >
+                        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M6 18L18 6M6 6l12 12"
+                            />
                         </svg>
                     </button>
                 </div>
 
                 {/* Content */}
-                <div className="p-6 overflow-y-auto max-h-[calc(85vh-5rem)]">
+                <div className="max-h-[calc(85vh-5rem)] overflow-y-auto p-6">
                     {isLoading ? (
                         <>
                             {/* Skeleton stat cards */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                            <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                                 {[...Array(4)].map((_, i) => (
-                                    <div key={i} className="bg-surface rounded-lg p-4 border border-white/8 border-t-3 border-t-gray-600">
-                                        <div className="skeleton h-3 w-24 rounded mb-2" />
+                                    <div
+                                        key={i}
+                                        className="rounded-lg border border-t-3 border-white/8 border-t-gray-600 bg-surface p-4"
+                                    >
+                                        <div className="skeleton mb-2 h-3 w-24 rounded" />
                                         <div className="skeleton h-6 w-20 rounded" />
                                     </div>
                                 ))}
                             </div>
                             {/* Skeleton table rows */}
                             <div className="space-y-2">
-                                <div className="flex gap-4 py-3 px-4 border-b border-white/8">
+                                <div className="flex gap-4 border-b border-white/8 px-4 py-3">
                                     <div className="skeleton h-4 w-24 rounded" />
                                     <div className="skeleton h-4 w-16 rounded" />
                                     <div className="skeleton h-4 w-16 rounded" />
@@ -130,7 +153,7 @@ export const RegistroDetailsModal: React.FC<RegistroDetailsModalProps> = ({ regi
                                     <div className="skeleton h-4 w-16 rounded" />
                                 </div>
                                 {[...Array(6)].map((_, i) => (
-                                    <div key={i} className="flex gap-4 py-3 px-4">
+                                    <div key={i} className="flex gap-4 px-4 py-3">
                                         <div className="skeleton h-4 w-40 rounded" />
                                         <div className="skeleton h-4 w-10 rounded" />
                                         <div className="skeleton h-4 w-16 rounded" />
@@ -143,40 +166,104 @@ export const RegistroDetailsModal: React.FC<RegistroDetailsModalProps> = ({ regi
                     ) : (
                         <>
                             {/* Stat Cards */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                                <StatCard label={t.registros.details.consultDate} value={formatFecha(fecha)} borderColor="#b8d600" />
-                                <StatCard label={t.registros.details.totalSteam} value={`${totals.steam.toFixed(2)} €`} borderColor="#5d79ae" />
-                                <StatCard label={t.registros.details.totalGamerPay} value={`${totals.gamerPay.toFixed(2)} €`} borderColor="#ea8f3e" />
-                                <StatCard label={t.registros.details.totalCSFloat} value={`${totals.csFloat.toFixed(2)} €`} borderColor="#ff6b35" />
+                            <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                                <StatCard
+                                    label={t.registros.details.consultDate}
+                                    value={formatFecha(fecha)}
+                                    borderColor="#b8d600"
+                                />
+                                <StatCard
+                                    label={t.registros.details.totalSteam}
+                                    value={`${totals.steam.toFixed(2)} €`}
+                                    borderColor="#5d79ae"
+                                />
+                                <StatCard
+                                    label={t.registros.details.totalGamerPay}
+                                    value={`${totals.gamerPay.toFixed(2)} €`}
+                                    borderColor="#ea8f3e"
+                                />
+                                <StatCard
+                                    label={t.registros.details.totalCSFloat}
+                                    value={`${totals.csFloat.toFixed(2)} €`}
+                                    borderColor="#ff6b35"
+                                />
                             </div>
 
                             {/* Table */}
                             {items.length === 0 ? (
-                                <div className="text-center text-gray-400 py-8">{t.registros.details.noItems}</div>
+                                <div className="py-8 text-center text-gray-400">{t.registros.details.noItems}</div>
                             ) : (
                                 <div className="overflow-x-auto">
                                     <table className="w-full">
                                         <thead>
                                             <tr className="border-b border-white/8">
-                                                <SortHeader label={t.registros.details.article} column="itemName" currentColumn={sortColumn} direction={sortDirection} onSort={handleSort} />
-                                                <SortHeader label={t.registros.details.quantity} column="cantidad" currentColumn={sortColumn} direction={sortDirection} onSort={handleSort} align="center" />
-                                                <SortHeader label="STEAM" column="precioSteam" currentColumn={sortColumn} direction={sortDirection} onSort={handleSort} align="right" />
-                                                <SortHeader label="GAMERPAY" column="precioGamerPay" currentColumn={sortColumn} direction={sortDirection} onSort={handleSort} align="right" />
-                                                <SortHeader label="CSFLOAT" column="precioCSFloat" currentColumn={sortColumn} direction={sortDirection} onSort={handleSort} align="right" />
+                                                <SortHeader
+                                                    label={t.registros.details.article}
+                                                    column="itemName"
+                                                    currentColumn={sortColumn}
+                                                    direction={sortDirection}
+                                                    onSort={handleSort}
+                                                />
+                                                <SortHeader
+                                                    label={t.registros.details.quantity}
+                                                    column="cantidad"
+                                                    currentColumn={sortColumn}
+                                                    direction={sortDirection}
+                                                    onSort={handleSort}
+                                                    align="center"
+                                                />
+                                                <SortHeader
+                                                    label="STEAM"
+                                                    column="precioSteam"
+                                                    currentColumn={sortColumn}
+                                                    direction={sortDirection}
+                                                    onSort={handleSort}
+                                                    align="right"
+                                                />
+                                                <SortHeader
+                                                    label="GAMERPAY"
+                                                    column="precioGamerPay"
+                                                    currentColumn={sortColumn}
+                                                    direction={sortDirection}
+                                                    onSort={handleSort}
+                                                    align="right"
+                                                />
+                                                <SortHeader
+                                                    label="CSFLOAT"
+                                                    column="precioCSFloat"
+                                                    currentColumn={sortColumn}
+                                                    direction={sortDirection}
+                                                    onSort={handleSort}
+                                                    align="right"
+                                                />
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {sortedItems.map((item, idx) => (
-                                                <tr key={idx} className="border-b border-white/5 border-l-2 border-l-transparent hover:border-l-primary hover:bg-surface-elevated transition-colors">
-                                                    <td className="py-3 px-4 text-white">{item.itemName}</td>
-                                                    <td className="py-3 px-4 text-white text-center">{item.cantidad}</td>
-                                                    <td className="py-3 px-4 text-white text-right" title={`${t.registros.details.totalTooltip}: ${item.totalSteam.toFixed(2)} €`}>
+                                                <tr
+                                                    key={idx}
+                                                    className="border-b border-l-2 border-white/5 border-l-transparent transition-colors hover:border-l-primary hover:bg-surface-elevated"
+                                                >
+                                                    <td className="px-4 py-3 text-white">{item.itemName}</td>
+                                                    <td className="px-4 py-3 text-center text-white">
+                                                        {item.cantidad}
+                                                    </td>
+                                                    <td
+                                                        className="px-4 py-3 text-right text-white"
+                                                        title={`${t.registros.details.totalTooltip}: ${item.totalSteam.toFixed(2)} €`}
+                                                    >
                                                         {item.precioSteam.toFixed(2)} €
                                                     </td>
-                                                    <td className="py-3 px-4 text-white text-right" title={`${t.registros.details.totalTooltip}: ${item.totalGamerPay.toFixed(2)} €`}>
+                                                    <td
+                                                        className="px-4 py-3 text-right text-white"
+                                                        title={`${t.registros.details.totalTooltip}: ${item.totalGamerPay.toFixed(2)} €`}
+                                                    >
                                                         {item.precioGamerPay.toFixed(2)} €
                                                     </td>
-                                                    <td className="py-3 px-4 text-white text-right" title={`${t.registros.details.totalTooltip}: ${item.totalCSFloat.toFixed(2)} €`}>
+                                                    <td
+                                                        className="px-4 py-3 text-right text-white"
+                                                        title={`${t.registros.details.totalTooltip}: ${item.totalCSFloat.toFixed(2)} €`}
+                                                    >
                                                         {item.precioCSFloat.toFixed(2)} €
                                                     </td>
                                                 </tr>
@@ -202,9 +289,12 @@ interface StatCardProps {
 }
 
 const StatCard: React.FC<StatCardProps> = ({ label, value, borderColor }) => (
-    <div className="bg-surface rounded-lg p-4 border border-white/8" style={{ borderTopColor: borderColor, borderTopWidth: "3px" }}>
-        <div className="text-xs text-gray-400 font-semibold mb-1">{label}</div>
-        <div className="text-white font-bold text-lg">{value}</div>
+    <div
+        className="rounded-lg border border-white/8 bg-surface p-4"
+        style={{ borderTopColor: borderColor, borderTopWidth: "3px" }}
+    >
+        <div className="mb-1 text-xs font-semibold text-gray-400">{label}</div>
+        <div className="text-lg font-bold text-white">{value}</div>
     </div>
 );
 
@@ -223,8 +313,11 @@ const SortHeader: React.FC<SortHeaderProps> = ({ label, column, currentColumn, d
     const alignClass = align === "right" ? "text-right" : align === "center" ? "text-center" : "text-left";
 
     return (
-        <th className={`py-3 px-4 ${alignClass}`}>
-            <button onClick={() => onSort(column)} className={`font-semibold text-xs tracking-wider cursor-pointer transition-colors ${isActive ? "text-primary" : "text-gray-400 hover:text-gray-200"}`}>
+        <th className={`px-4 py-3 ${alignClass}`}>
+            <button
+                onClick={() => onSort(column)}
+                className={`cursor-pointer text-xs font-semibold tracking-wider transition-colors ${isActive ? "text-primary" : "text-gray-400 hover:text-gray-200"}`}
+            >
                 {label}
                 {indicator}
             </button>

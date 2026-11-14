@@ -53,7 +53,10 @@ export const UserItemsView: React.FC<{ lang: Lang }> = ({ lang }) => {
         return items.filter(i => i.nombre?.toLowerCase().includes(q));
     }, [items, searchText]);
 
-    const selectedItem = useMemo(() => filteredItems.find(i => i.itemId === selectedItemId) ?? null, [filteredItems, selectedItemId]);
+    const selectedItem = useMemo(
+        () => filteredItems.find(i => i.itemId === selectedItemId) ?? null,
+        [filteredItems, selectedItemId],
+    );
 
     const handleAddItem = useCallback(async () => {
         const ti = t.items;
@@ -90,7 +93,7 @@ export const UserItemsView: React.FC<{ lang: Lang }> = ({ lang }) => {
             itemName: selectedItem.nombre,
             steamHashName: selectedItem.hashNameSteam ?? "",
             gamerPayName: selectedItem.gamerPayNombre ?? "",
-            csFloatMarketHashName: ""
+            csFloatMarketHashName: "",
         };
 
         const success = await addUserItem(newUserItem);
@@ -118,36 +121,45 @@ export const UserItemsView: React.FC<{ lang: Lang }> = ({ lang }) => {
 
     return (
         <div className="min-h-screen pt-16">
-            <main className="px-4 py-8 max-w-7xl mx-auto">
+            <main className="mx-auto max-w-7xl px-4 py-8">
                 {/* Search bar */}
                 <div className="mb-6">
-                    <input type="text" placeholder={ti.searchPlaceholder} value={searchText} onChange={e => setSearchText(e.target.value)} className="w-full max-w-md h-10 px-4 bg-surface-card border border-white/8 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-primary" />
+                    <input
+                        type="text"
+                        placeholder={ti.searchPlaceholder}
+                        value={searchText}
+                        onChange={e => setSearchText(e.target.value)}
+                        className="h-10 w-full max-w-md rounded-lg border border-white/8 bg-surface-card px-4 text-sm text-white placeholder-gray-500 focus:border-primary focus:outline-none"
+                    />
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                     {/* Left panel — User items list */}
                     <div className="lg:col-span-2">
-                        <h2 className="text-white font-semibold text-lg mb-4">{ti.myItems}</h2>
+                        <h2 className="mb-4 text-lg font-semibold text-white">{ti.myItems}</h2>
 
                         <div className="max-h-[calc(100vh-14rem)] overflow-y-auto pr-1">
                             {isLoading ? (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                                     {[...Array(6)].map((_, i) => (
-                                        <div key={i} className="bg-surface-card rounded-lg border border-white/8 p-4 flex items-center gap-3">
+                                        <div
+                                            key={i}
+                                            className="flex items-center gap-3 rounded-lg border border-white/8 bg-surface-card p-4"
+                                        >
                                             <div className="skeleton h-4 w-40 rounded" />
                                             <div className="ml-auto flex items-center gap-2">
-                                                <div className="skeleton w-20 h-9 rounded-lg" />
-                                                <div className="skeleton w-9 h-9 rounded-lg" />
-                                                <div className="skeleton w-9 h-9 rounded-lg" />
-                                                <div className="skeleton w-9 h-9 rounded-lg" />
+                                                <div className="skeleton h-9 w-20 rounded-lg" />
+                                                <div className="skeleton h-9 w-9 rounded-lg" />
+                                                <div className="skeleton h-9 w-9 rounded-lg" />
+                                                <div className="skeleton h-9 w-9 rounded-lg" />
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             ) : filteredUserItems.length === 0 ? (
-                                <p className="text-gray-500 text-sm">{ti.noUserItems}</p>
+                                <p className="text-sm text-gray-500">{ti.noUserItems}</p>
                             ) : (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                                     {filteredUserItems.map(ui => (
                                         <UserItemCard key={ui.useritemid} userItem={ui} onSaved={handleSaved} />
                                     ))}
@@ -158,21 +170,25 @@ export const UserItemsView: React.FC<{ lang: Lang }> = ({ lang }) => {
 
                     {/* Right panel — Add new item */}
                     <div>
-                        <div className="bg-surface-card rounded-xl border border-white/8 p-6">
-                            <div className="flex items-center gap-3 mb-6">
+                        <div className="rounded-xl border border-white/8 bg-surface-card p-6">
+                            <div className="mb-6 flex items-center gap-3">
                                 <FiPackage className="text-primary" size={22} />
-                                <h2 className="text-white font-semibold text-lg">{ti.newItem}</h2>
+                                <h2 className="text-lg font-semibold text-white">{ti.newItem}</h2>
                             </div>
 
                             {/* Catalog listbox */}
                             <div className="mb-4">
-                                <div className="border border-white/8 rounded-lg overflow-hidden">
+                                <div className="overflow-hidden rounded-lg border border-white/8">
                                     <div className="max-h-64 overflow-y-auto">
                                         {filteredItems.length === 0 ? (
-                                            <p className="text-gray-500 text-sm p-3">{ti.noItemsFound}</p>
+                                            <p className="p-3 text-sm text-gray-500">{ti.noItemsFound}</p>
                                         ) : (
                                             filteredItems.map((item, index) => (
-                                                <button key={`${item.itemId}-${index}`} onClick={() => setSelectedItemId(item.itemId)} className={`w-full text-left px-3 py-2 text-sm transition-colors cursor-pointer ${selectedItemId === item.itemId ? "bg-primary/20 text-primary" : "text-white hover:bg-surface-elevated"}`}>
+                                                <button
+                                                    key={`${item.itemId}-${index}`}
+                                                    onClick={() => setSelectedItemId(item.itemId)}
+                                                    className={`w-full cursor-pointer px-3 py-2 text-left text-sm transition-colors ${selectedItemId === item.itemId ? "bg-primary/20 text-primary" : "text-white hover:bg-surface-elevated"}`}
+                                                >
                                                     {item.nombre}
                                                 </button>
                                             ))
@@ -183,12 +199,23 @@ export const UserItemsView: React.FC<{ lang: Lang }> = ({ lang }) => {
 
                             {/* Quantity input */}
                             <div className="mb-4">
-                                <label className="block text-gray-400 text-xs mb-1 uppercase">{ti.quantity}</label>
-                                <input type="text" inputMode="numeric" value={newItemNum} onChange={handleNewItemNumChange} placeholder="0" maxLength={9} className="w-full h-10 px-4 bg-surface border border-white/8 rounded-lg text-white text-sm focus:outline-none focus:border-primary" />
+                                <label className="mb-1 block text-xs text-gray-400 uppercase">{ti.quantity}</label>
+                                <input
+                                    type="text"
+                                    inputMode="numeric"
+                                    value={newItemNum}
+                                    onChange={handleNewItemNumChange}
+                                    placeholder="0"
+                                    maxLength={9}
+                                    className="h-10 w-full rounded-lg border border-white/8 bg-surface px-4 text-sm text-white focus:border-primary focus:outline-none"
+                                />
                             </div>
 
                             {/* Add button */}
-                            <button onClick={handleAddItem} className="w-full py-2.5 px-4 rounded-lg font-semibold bg-primary text-surface hover:bg-primary-hover transition-colors cursor-pointer">
+                            <button
+                                onClick={handleAddItem}
+                                className="w-full cursor-pointer rounded-lg bg-primary px-4 py-2.5 font-semibold text-surface transition-colors hover:bg-primary-hover"
+                            >
                                 {ti.addItem}
                             </button>
                         </div>

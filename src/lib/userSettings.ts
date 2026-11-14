@@ -11,7 +11,10 @@ export async function getUserInfo(): Promise<UserInfo | null> {
     }
 }
 
-export async function changePassword(currentPassword: string, newPassword: string): Promise<{ success: boolean; error?: string }> {
+export async function changePassword(
+    currentPassword: string,
+    newPassword: string,
+): Promise<{ success: boolean; error?: string }> {
     try {
         await api.put("/UserSettings/password", { currentPassword, newPassword });
         return { success: true };

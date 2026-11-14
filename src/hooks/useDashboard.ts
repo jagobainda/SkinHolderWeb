@@ -26,7 +26,12 @@ function calculateUptime(): number {
 }
 
 async function fetchDashboardStats(): Promise<DashboardStats> {
-    const [lastRegistro, varianceStats, dbPing, externalLatencies] = await Promise.all([getLastRegistro(), getVarianceStats(), measureDatabaseLatency(), measureAllLatencies()]);
+    const [lastRegistro, varianceStats, dbPing, externalLatencies] = await Promise.all([
+        getLastRegistro(),
+        getVarianceStats(),
+        measureDatabaseLatency(),
+        measureAllLatencies(),
+    ]);
 
     const isActive = dbPing !== -1 && dbPing < 5000;
 
@@ -34,17 +39,17 @@ async function fetchDashboardStats(): Promise<DashboardStats> {
         connection: {
             status: isActive ? "active" : "inactive",
             ping: dbPing,
-            uptime: calculateUptime()
+            uptime: calculateUptime(),
         },
         lastRegistry: lastRegistro
             ? {
                   totalSteam: lastRegistro.totalsteam ?? 0,
                   totalGamepay: lastRegistro.totalgamerpay ?? 0,
-                  totalCsfloat: lastRegistro.totalcsfloat ?? 0
+                  totalCsfloat: lastRegistro.totalcsfloat ?? 0,
               }
             : null,
         latency: externalLatencies,
-        variance: varianceStats
+        variance: varianceStats,
     };
 }
 
@@ -52,6 +57,6 @@ export function useDashboard() {
     return useQuery({
         queryKey: ["dashboard"],
         queryFn: fetchDashboardStats,
-        refetchInterval: 30_000
+        refetchInterval: 30_000,
     });
 }

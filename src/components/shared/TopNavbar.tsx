@@ -11,7 +11,7 @@ export const TopNavbar: React.FC = () => {
         { path: "/home", label: t.main.navbar.home, icon: FiHome },
         { path: "/registros", label: t.main.navbar.records, icon: FiFileText },
         { path: "/items", label: t.main.navbar.items, icon: FiPackage },
-        { path: "/config", label: t.main.navbar.config, icon: FiUser }
+        { path: "/config", label: t.main.navbar.config, icon: FiUser },
     ];
 
     const isActive = (path: string) => window.location.pathname === path;
@@ -26,50 +26,72 @@ export const TopNavbar: React.FC = () => {
     };
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-[#333333] border-b border-gray-700 shadow-lg">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center h-16 lg:justify-between">
-                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden text-gray-300 hover:text-primary transition-colors p-2" aria-label="Toggle menu">
-                        {isMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
+        <nav className="fixed top-0 right-0 left-0 z-50 border-b border-gray-700 bg-[#333333] shadow-lg">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="flex h-16 items-center lg:justify-between">
+                    <button
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        className="p-2 text-gray-300 transition-colors hover:text-primary lg:hidden"
+                        aria-label="Toggle menu"
+                    >
+                        {isMenuOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
                     </button>
 
-                    <a href="/home" className="flex items-center gap-3 hover:opacity-80 transition-opacity absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0">
+                    <a
+                        href="/home"
+                        className="absolute left-1/2 flex -translate-x-1/2 items-center gap-3 transition-opacity hover:opacity-80 lg:static lg:translate-x-0"
+                    >
                         <img src="/images/logo_login.png" alt="Logo" className="h-10 w-auto" />
                         <span className="text-2xl font-bold text-primary">SkinHolder</span>
                     </a>
 
-                    <div className="hidden lg:flex items-center gap-2">
+                    <div className="hidden items-center gap-2 lg:flex">
                         {navItems.map(({ path, label, icon: Icon }) => (
-                            <a key={path} href={path} className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 min-w-fit ${isActive(path) ? "bg-primary text-gray-900 font-semibold" : "text-gray-300 hover:bg-gray-700 hover:text-primary font-medium"}`}>
-                                <Icon className="w-5 h-5" />
+                            <a
+                                key={path}
+                                href={path}
+                                className={`flex min-w-fit items-center gap-2 rounded-lg px-4 py-2 transition-all duration-200 ${isActive(path) ? "bg-primary font-semibold text-gray-900" : "font-medium text-gray-300 hover:bg-gray-700 hover:text-primary"}`}
+                            >
+                                <Icon className="h-5 w-5" />
                                 <span className="whitespace-nowrap">{label}</span>
                             </a>
                         ))}
 
-                        <div className="w-px h-8 bg-gray-700 mx-2" />
+                        <div className="mx-2 h-8 w-px bg-gray-700" />
 
-                        <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors duration-200 hover:cursor-pointer">
-                            <FiLogOut className="w-5 h-5" />
+                        <button
+                            onClick={handleLogout}
+                            className="flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-white transition-colors duration-200 hover:cursor-pointer hover:bg-red-700"
+                        >
+                            <FiLogOut className="h-5 w-5" />
                             <span>{t.main.navbar.logout}</span>
                         </button>
                     </div>
 
-                    <div className="lg:hidden w-10" />
+                    <div className="w-10 lg:hidden" />
                 </div>
 
                 {isMenuOpen && (
-                    <div className="lg:hidden py-4 space-y-2 border-t border-gray-700">
+                    <div className="space-y-2 border-t border-gray-700 py-4 lg:hidden">
                         {navItems.map(({ path, label, icon: Icon }) => (
-                            <a key={path} href={path} onClick={() => setIsMenuOpen(false)} className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${isActive(path) ? "bg-primary text-gray-900 font-semibold" : "text-gray-300 hover:bg-gray-700 hover:text-primary"}`}>
-                                <Icon className="w-5 h-5" />
+                            <a
+                                key={path}
+                                href={path}
+                                onClick={() => setIsMenuOpen(false)}
+                                className={`flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-all duration-200 ${isActive(path) ? "bg-primary font-semibold text-gray-900" : "text-gray-300 hover:bg-gray-700 hover:text-primary"}`}
+                            >
+                                <Icon className="h-5 w-5" />
                                 <span>{label}</span>
                             </a>
                         ))}
 
-                        <div className="h-px bg-gray-700 my-2" />
+                        <div className="my-2 h-px bg-gray-700" />
 
-                        <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors duration-200">
-                            <FiLogOut className="w-5 h-5" />
+                        <button
+                            onClick={handleLogout}
+                            className="flex w-full items-center gap-3 rounded-lg bg-red-600 px-4 py-3 text-white transition-colors duration-200 hover:bg-red-700"
+                        >
+                            <FiLogOut className="h-5 w-5" />
                             <span>{t.main.navbar.logout}</span>
                         </button>
                     </div>
