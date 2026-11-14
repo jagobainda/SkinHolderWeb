@@ -16,12 +16,12 @@ export const LoginForm: React.FC<Props> = ({ onSubmit, onForgotPassword, onReque
     const [showRegisterPanel, setShowRegisterPanel] = useState(false);
     const [email, setEmail] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         onSubmit(username, password);
     };
 
-    const handleRequestAccess = async (e: React.FormEvent) => {
+    const handleRequestAccess = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (await onRequestAccess(email)) setEmail("");
     };
