@@ -1,0 +1,20 @@
+version: 2
+updates:
+    # Dependencias npm del proyecto (Astro, React, Tailwind, plugins de Prettier, etc.)
+    - package-ecosystem: npm
+      directory: /
+      schedule:
+          interval: weekly
+      open-pull-requests-limit: 10
+      groups:
+          # Agrupa las actualizaciones menores/patch en un solo PR para reducir ruido.
+          minor-and-patch:
+              update-types:
+                  - minor
+                  - patch
+
+    # Las propias actions usadas en los workflows (checkout, setup-node...).
+    - package-ecosystem: github-actions
+      directory: /
+      schedule:
+          interval: weekly

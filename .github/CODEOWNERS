@@ -1,0 +1,11 @@
+# GitHub solicita review automáticamente al owner cuando una PR toca estos
+# ficheros. Sustituye a la opción `reviewers` de dependabot.yml (deprecada).
+
+# Ecosistema npm (directory: /)
+
+/package.json @jagobainda
+/package-lock.json @jagobainda
+
+# Ecosistema github-actions (directory: /)
+
+/.github/workflows/ @jagobainda
